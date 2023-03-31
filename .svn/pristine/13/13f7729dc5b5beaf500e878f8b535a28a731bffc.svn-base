@@ -1,0 +1,14 @@
+import MVC_interface_graphique.MdJ;
+
+/** Cette classe sert à lancer le jeu !
+ * 
+ * @version 1.0
+ */
+public class Main {
+
+	public static void main(String[] args) {
+		MdJ mdj = new MdJ();
+		mdj.menuLancement();
+	}
+
+}

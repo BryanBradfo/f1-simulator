@@ -1,0 +1,147 @@
+package modele;
+
+
+
+/** Un circuit est localisé dans un pays et à un nom.
+* Il a un nombre de tours établis, une longueur et donc une distance de course totale.
+* Il y a aussi un nombre de virages, plus ou moins rapides.
+* Des records sont déjà établis pour le circuit et servent de référence.
+*
+* @author  Hautesserres Simon
+* @version 1.0
+*/
+
+public class Circuit {
+	
+	private final int MAX_NB_SECTEURS = 3;
+	
+	/** Nom du circuit */
+	private String nom;
+	/** Pays où se situe le circuit */
+	private String pays;
+	/** Nombre de Tours du circuit pendant une course */
+	private int nbTours;
+	/** Longueur du circuit en Kilomètres */
+	private double longueur; // Longueur du circuit (donc 1 seul tour) en km
+	/** Distance en kilomètres de la Course */
+	private double distanceCourse; // Distance totale de la course : nbTours * longueur en km
+	/** Nombre de virages total du circuit */
+	private int nbVirages;
+	/** Liste des trois secteurs composés de virages */
+	private Secteurs [] secteurs;
+	/** Nombre de zones DRS sur un tour */
+	private int zonesDRS;
+	/** Zones des stands associés au circuit */
+	private Stands stand;
+	/** Pilote associé au meilleur tour réalisé en course */
+	private Pilote meilleurPilote; // A CHANGER AVEC CLASSE PILOTE
+	/** Temps en minutes, secondes, millisecondes du record du tour effectué en course */
+	private String recordTour;
+	/** Etat du circuit */
+	private EtatCircuit etat;
+	
+	/** Construire le circuit à partir de son nom, son pays, son nombre de tours, sa longueur
+	 * le nombre de virages et la liste de ceux ci, le meilleur tour avec le pilote et l'etat du circuit
+	 * @param nom la nom du circuit
+	 * @param pays le nom pays où est le circuit
+	 * @param longueur la longueur du circuit
+	 * @param nbVirages le nombre de virages
+	 * @param zonesDRS le nombre de zones DRS
+	 * @param stand le stands associé au circuit
+	 * @param pilote le pilote associé au meilleur tour
+	 * @param recordTour le record du tour 
+	 */
+	public Circuit (String nom, String pays, int nbTours, double longueur, int nbVirages, 
+					int zonesDRS, Stands stand, Pilote pilote, String recordTour ) {
+		this.nom = nom;
+		this.pays = pays;
+		this.nbTours = nbTours;
+		this.longueur = longueur;
+		this.distanceCourse = longueur*nbTours;
+		this.nbVirages = nbVirages;
+		this.secteurs = new Secteurs[MAX_NB_SECTEURS];
+		this.zonesDRS = zonesDRS;
+		this.stand = Stands.creerStands(stand.getNombrePlaces(), stand.getLongueur(),
+				stand.getVitesseMoyenne(), stand.getTempsArretMoyen());
+		this.meilleurPilote = Pilote.creerPilote(pilote.getNom(), pilote.getPrenom(), pilote.getNationalite(),
+				pilote.getAge(), pilote.getSexe(), pilote.getTaille(), pilote.getPoids(), pilote.getExp());
+		this.recordTour = recordTour;
+		this.etat = new EtatCircuit();
+		
+	}
+	
+	/** Calcul du temps du circuit en prenant en compte des performances de la voiture, du Pilote,
+	 * de l'état du circuit (drapeau jaune, météo, adhérence du bitume) et d'une part d'aléatoire
+	 * @param voiture la voiture et ses performances ont une grande influence sur le temps pouvant être réalise en course
+	 * @param etat etat du icrcuit qui influence le temps sur un tour
+	 */
+	public int calculerTempsCircuit(Voiture voiture, EtatCircuit etat) {
+		return 0;
+	}
+	
+	public static Circuit creerCircuitBahrein() {
+		/* SECTEUR 1 */
+		Virages [] viragesS1 = new Virages[4];
+		viragesS1[0] = new ViragesLents(1,51,90);
+		viragesS1[1] = new ViragesMoyens(2,50,160);
+		viragesS1[2] = new ViragesRapides(3,70,220);
+		viragesS1[3] = new ViragesLents(4,90,125);
+		LigneDroites [] lignesS1 = new LigneDroites[5];
+		lignesS1[0] = new LigneDroites(733,290,true);
+		lignesS1[1] = new LigneDroites(50,135,false);
+		lignesS1[2] = new LigneDroites(60,215,false);
+		lignesS1[3] = new LigneDroites(540,275,true);
+		lignesS1[4] = new LigneDroites(200,210,false);
+		/* SECTEUR 2 */
+		Virages [] viragesS2 = new Virages[8];
+		viragesS2[0]= new ViragesRapides(5, 60, 250);
+		viragesS2[1]= new ViragesMoyens(6, 80, 210);
+		viragesS2[2]= new ViragesMoyens(7, 110, 205);
+		viragesS2[3]= new ViragesLents(8, 75, 80);
+		viragesS2[4]= new ViragesMoyens(9, 80, 210);
+		viragesS2[5]= new ViragesLents(10, 70, 80);
+		viragesS2[6]= new ViragesMoyens(11, 250, 180);
+		viragesS2[7]= new ViragesRapides(12, 175, 275);
+		LigneDroites [] lignesS2 = new LigneDroites[6];
+		lignesS2[0] = new LigneDroites(180,240,false);
+		lignesS2[1] = new LigneDroites(290,230,false);
+		lignesS2[2] = new LigneDroites(50,120,false);
+		lignesS2[3] = new LigneDroites(700,285,true);
+		lignesS2[4] = new LigneDroites(75,250,false);
+		lignesS2[5] = new LigneDroites(75,280,false);
+		/* SECTEUR 3 */
+		Virages [] viragesS3 = new Virages[3];
+		viragesS3[0]= new ViragesMoyens(13, 120, 150);
+		viragesS3[1]= new ViragesMoyens(14, 60, 140);
+		viragesS3[2]= new ViragesMoyens(15,60, 180);
+		LigneDroites [] lignesS3 = new LigneDroites[4];
+		lignesS3[0] = new LigneDroites(50,250,false);
+		lignesS3[1] = new LigneDroites(750,280,false);
+		lignesS3[2] = new LigneDroites(50,170,false);
+		lignesS3[3] = new LigneDroites(350,280,true);
+		return new Circuit("International de Sahkir", "Bahreïn",57, 5.412, 15, 3, new Stands(20, 600, 80, 30), 
+				new Pilote("Hamilton", "Lewis", "Anglais", 37, "M", 50.0, 50.0, new Experience(50, 33, 100)), "1:27:264");
+	}
+	
+	/** Retourner le secteur dans lequel se situe la voiture
+	 * 
+	 */
+
+
+	/** Retourne l'affichage des attributs de la classe Circuit
+	 * @return string des attributs
+	 */
+	@Override
+	public String toString() {
+		return "== Grand Prix de "+ this.pays + " ==\nCircuit " + nom + "\nNombre Tours : " + nbTours + "\nLongueur : " + longueur
+				+ "\nDistance Course : " + this.distanceCourse + "\nNombre Virages :" + nbVirages + "\nZones DRS : " + zonesDRS
+				+ "\nMeilleur Tour : " + this.recordTour + " realisé par " + this.meilleurPilote.getPrenom() + 
+				this.meilleurPilote.getPrenom()+"\n" + etat;
+	}
+	
+	
+	
+	
+	
+
+}

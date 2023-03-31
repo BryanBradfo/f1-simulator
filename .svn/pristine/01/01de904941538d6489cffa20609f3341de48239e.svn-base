@@ -1,0 +1,13 @@
+package modele;
+
+public class ViragesRapides extends Virages {
+
+	public ViragesRapides(int numero, double longueur, double distanceSuivant,double vitesseMoyenne) {
+		super(numero, longueur, distanceSuivant, vitesseMoyenne);
+	}
+
+	public double tempsPassage() {
+		return this.longueur/(250/3.6) + distanceSuivant/(vitesseMoyenne/3.6);
+	}
+
+}

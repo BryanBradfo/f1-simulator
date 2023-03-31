@@ -1,0 +1,52 @@
+package modele;
+
+
+public class Circuit {
+	
+	private String nom;
+	private String pays;
+	private int nbTours;
+	private double longueur; // Longueur du circuit (donc 1 seul tour) en km
+	private double distanceCourse; // Distance totale de la course : nbTours * longueur en km
+	private int nbVirages;
+	private Virages [] virages;
+	private int zonesDRS;
+	private Stands stand;
+	private String meilleurPilote; // A CHANGER AVEC CLASSE PILOTE
+	private String recordTour; // A CHANGER AVEC TIME
+	private EtatCircuit etat;
+	
+	
+	public Circuit (String nom, String pays, int nbTours, double longueur, int nbVirages, int zonesDRS, String recordTour, String meilleurPilote, EtatCircuit etat ) {
+		this.nom = nom;
+		this.pays = pays;
+		this.nbTours = nbTours;
+		this.longueur = longueur;
+		this.distanceCourse = longueur*nbTours;
+		this.nbVirages = nbVirages;
+		this.zonesDRS = zonesDRS;
+		this.recordTour = recordTour;
+		this.meilleurPilote = String.copyValueOf(meilleurPilote.toCharArray());
+		this.etat = etat;
+		this.virages = new Virages[nbVirages];
+	}
+	
+	
+	public int calculerTempsCircuit(Voiture voiture, EtatCircuit etat) {
+		return 0;
+	}
+
+
+	@Override
+	public String toString() {
+		return "== Grand Prix de "+ pays + " ==\nCircuit " + nom + "\nNombre Tours : " + nbTours + "\nLongueur : " + longueur
+				+ "\nDistance Course : " + distanceCourse + "\nNombre Virages :" + nbVirages + "\nZones DRS : " + zonesDRS
+				+ "\nMeilleur Tour : " + recordTour + " realisé par "+meilleurPilote+"\n" +etat;
+	}
+	
+	
+	
+	
+	
+
+}

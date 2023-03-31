@@ -1,0 +1,41 @@
+package modele;
+import org.junit.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class VoitureTest {
+	
+	// Creer les variables
+	Voiture v1, v2;
+	Pilote NS;
+	Experience exp;
+	
+	@Before public void setUp() {
+		// Creer Expérience pilote
+		exp = new Experience();
+		
+		// Creer un nouveau pilote
+		NS = new Pilote("Sarkozy", "Nicolas", "Français", 67, "Masculin", 1.66, 80, exp);
+		
+		// Creer une voiture associée
+		v1 = new Voiture("Audible", 752, 1, false, NS);
+		
+		// Creer une voiture basique
+		v2 = Voiture.creerVoitureBasique();
+	}
+	
+	@Test public void testerVoiture() {
+		assert(v1.getMarque().equals("Audible"));
+		assert(v1.getPoids() == 752);
+		assert(v1.getIndicesPerformances() == 1);
+		assert(v1.isEstEnCourse() == false);
+		assert(v1.getPilote().equals(NS));
+	}
+	
+	@Test public void testerVoitureBasique() {
+		assert(v2.getMarque().equals("Mercedes"));
+		assert(v2.getPoids() == 752);
+		assert(v2.getIndicesPerformances() == 1);
+		assert(v2.isEstEnCourse() == false);
+		assert(v2.getPilote().equals(Pilote.creerPilotebasique()));
+	}
+}

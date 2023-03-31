@@ -1,0 +1,61 @@
+package vue.moteurDeJeu;
+
+import modele.*;
+
+import vue.menu.*;
+import vue.sousmenus.commandes.*;
+import vue.sousmenus.*;
+
+public class MoteurDeJeu {
+
+	private Menu menuLancer;  // Le menu de démarrage
+	private Ecurie monEcurie;
+	
+	/** Constructeur du jeu, prépare les différentes classes et les sous-menus.
+	 */
+	public MoteurDeJeu() {
+		// Création des classes importantes 
+		monEcurie = Ecurie.CreerEcurieSimple();
+
+		// Création du menu de démarrage 
+		menuLancer = new Menu("Menu de lancement");
+		SousMenu menuPrincipal = new MenuPrincipal(monEcurie);
+		SousMenu menuVoiture = new MenuVoiture(monEcurie);
+		SousMenu menuPilotes = new MenuPilotes(monEcurie);
+		
+		menuLancer.ajouter("Jouer", menuPrincipal);
+		menuVoiture.ajouter("Améliorer la voiture",	new CommandeAmeliorerVoiture(monEcurie));
+		
+		menuPrincipal.ajouter("Lancer la course", new CommandeLancerCourse(null));
+		menuPrincipal.ajouter("Gérer les pilotes", menuPilotes);
+		menuPrincipal.ajouter("Gérer les voitures", menuVoiture);
+		
+		
+	}
+	
+	public String affichageMenuVoiture() {
+		return "MENU CAR MANAGEMENT\n\n" + monEcurie.getVoiture();
+	}
+	
+	public String affichageMenuPilotes() {
+		return "MENU PILOTES MANAGEMENT\n\nPilote 1 : " + monEcurie.getPilotes()[0] + "\nPilote 2 :" + monEcurie.getPilotes()[1];
+	}
+
+	public void lancer() {
+		do {
+			// Afficher le menu
+			menuLancer.afficher();
+
+			// Sélectionner une entrée dans le menu
+			menuLancer.selectionner();
+
+			// Valider l'entrée sélectionnée
+			menuLancer.valider();
+			
+			System.out.println();
+			System.out.println();
+			System.out.println();
+
+		} while (! menuLancer.estQuitte());
+	}
+}

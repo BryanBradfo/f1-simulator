@@ -1,0 +1,14 @@
+
+
+public class ViragesMoyens extends Virages {
+
+	public ViragesMoyens(int numero, double longueur, double vitesseMoyenne) {
+		super(numero, longueur, vitesseMoyenne);
+	}
+
+	public double tempsPassage() {
+		// A CHANGER
+		return super.getLongueur()/(super.getVitesseMoyenne()/3.6);
+	}
+
+}

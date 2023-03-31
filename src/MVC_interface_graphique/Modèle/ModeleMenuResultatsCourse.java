@@ -1,0 +1,51 @@
+package MVC_interface_graphique.Modèle;
+import MVC_interface_graphique.MdJ;
+import modele.Classement;
+
+/** Cette classe décrit le comportement du menu d'affichage des résultats d'une course
+ * 
+ * @version 1.1
+ */
+public class ModeleMenuResultatsCourse {
+	
+	private MdJ mdj;					// Le moteur de jeu
+	private Classement classement;		// Le classement de la course
+	
+	public ModeleMenuResultatsCourse(MdJ mdj, Classement classement) {
+		this.mdj = mdj;
+		this.classement = classement;
+	}
+	
+	/** @return les infos du premier de la course */
+	public String[] getPremier() {
+		return this.classement.getPremier();
+	}
+	
+	/** @return les infos du second de la course */
+	public String[] getSecond() {
+		return this.classement.getSecond();
+	}
+	
+	/** @return les infos du troisièmre de la course */
+	public String[] getThird() {
+		return this.classement.getThird();
+	}
+	
+	/** @return les infos du reste des participants */
+	public String[][] getReste() {
+		return this.classement.getRest();
+	}
+	public void calculerBudget() {
+		this.mdj.getMonEcurie().calculerBudget(this.classement);
+	}
+	
+	public void gagnerExperienceEcurie() {
+		this.mdj.getMonEcurie().calculerExperience(this.classement);
+	}
+	
+	
+	/** Revenir au Menu principal */
+	public void goMenuPrincipal() {
+		mdj.menuPrincipal();
+	}
+}

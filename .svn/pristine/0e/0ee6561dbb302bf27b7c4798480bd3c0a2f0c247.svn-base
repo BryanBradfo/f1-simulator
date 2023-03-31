@@ -1,0 +1,36 @@
+package MVC_interface_graphique.Modèle;
+
+import MVC_interface_graphique.MdJ;
+
+/** Cette classe gère le modèle du menu des pilotes
+ * 
+ * @version 1.0
+ */
+public class ModeleMenuPilotes {
+	
+	private MdJ mdj;		// Moteur de jeu
+	
+	public ModeleMenuPilotes(MdJ mdj) {
+		this.mdj = mdj;
+	}
+	
+	/** Retourner les infos sur le pilote 1
+	 * @return les infos
+	 */
+	public String getInfosPilote1() {
+		return mdj.getMonEcurie().getPilote1().toString();
+	}
+	
+	/** Retourner les infos sur le pilote 2
+	 * @return les infos
+	 */
+	public String getInfosPilote2() {
+		return mdj.getMonEcurie().getPilote2().toString();
+	}
+	
+	/** Retour au menu principal */
+	public void goMenuPrincipal() {
+		this.mdj.menuPrincipal();
+	}
+	
+}

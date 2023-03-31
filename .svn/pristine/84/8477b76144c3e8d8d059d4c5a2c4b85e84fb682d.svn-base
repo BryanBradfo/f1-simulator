@@ -1,0 +1,59 @@
+package MVC_interface_graphique.Vue;
+
+import java.awt.BorderLayout;
+
+import javax.swing.*;
+
+import MVC_interface_graphique.Modèle.ModeleMenuPrincipal;
+
+/** Classe définissant la vue du menu principal
+ * 
+ * @version 1.0
+ */
+public class VueMenuPrincipal extends JPanel {
+	
+	private static final long serialVersionUID = -1651791507448680492L;			// Numéro de Série (utile si besoin de serialiser la classe)
+	private ModeleMenuPrincipal modele;		// Modèle du menu
+	//private JLabel lGauche;					// Afficheur gauche
+	private JLabel lGaucheIcone;					// Afficheur gauche icone
+	private JLabel lMilieu;					// Afficheur Milieu
+	private JLabel lDroit;					// Afficheur droit
+	//private ImageIcon img, img_t, img_p;
+	//img = new ImageIcon("img/bouton.png");
+	//img_t = new ImageIcon("img/bouton-touché.png");
+	//img_p = new ImageIcon("img/bouton-pressé.png");
+	private ImageIcon icone = new ImageIcon("img/money_dogecoin-removebg-preview.png");
+	/** Constructeur de la vue de menu principal;
+	 * @param modele le modèle du menu principal
+	 */
+	public VueMenuPrincipal(ModeleMenuPrincipal modele) {
+		this.modele = modele;
+		
+		this.setLayout(new BorderLayout());
+		//this.lGauche = new JLabel();
+		this.lMilieu = new JLabel();
+		this.lDroit = new JLabel();
+		this.lGaucheIcone = new JLabel("Budget : " + this.modele.getBudjetEcurie() + " DOGECOINS", icone, JLabel.CENTER);
+		//lGauche.setHorizontalAlignment(JLabel.CENTER);
+		lMilieu.setHorizontalAlignment(JLabel.CENTER);
+		lDroit.setHorizontalAlignment(JLabel.CENTER);
+		//lGauche.setFont(lGauche.getFont().deriveFont(18f));
+		lMilieu.setFont(lMilieu.getFont().deriveFont(28f));
+		lDroit.setFont(lDroit.getFont().deriveFont(18f));
+
+		this.add(this.lGaucheIcone, BorderLayout.WEST);
+		this.add(this.lMilieu, BorderLayout.CENTER);
+		this.add(this.lDroit, BorderLayout.EAST);
+		
+		this.mettreAJour();
+	}
+	
+	/** Mettre à jour la vue du menu principal */
+	public void mettreAJour() {
+		
+		//this.lGauche.setText("Budget : " + this.modele.getBudjetEcurie() + " DOGECOINS");
+		this.lMilieu.setText(this.modele.getEcurieNom());
+		this.lDroit.setText("Niveau : " + this.modele.getNiveauEcurie());
+	}
+
+}

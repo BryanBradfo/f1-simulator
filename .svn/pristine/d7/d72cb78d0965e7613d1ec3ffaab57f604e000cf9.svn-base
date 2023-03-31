@@ -1,0 +1,17 @@
+
+
+public class Roue extends ElementVoiture {
+	
+	/** Nom de la marque de la roue. */
+	private String nom;
+	
+	/** Adhérence de la roue. */
+	private float adherence;
+	
+	/** Perte d'efficacité de la roue. */
+	@Override
+	public void perteDeVie() {
+		
+	}
+
+}

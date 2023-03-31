@@ -1,0 +1,35 @@
+package vue.menuLancer;
+
+import vue.menu.Menu;
+import vue.menu.commande.CommandeNOP;
+
+public class MenuLancer {
+
+	private Menu menuLancer;
+
+	public MenuLancer() {
+		menuLancer = new Menu("Menu de lancement");
+		Menu menuSauvegarde = new Menu("Menu de sauvegarde");
+		Menu menuPrincipal = new Menu("Menu principal");
+
+		menuLancer.ajouter("Jouer", new CommandeNOP());
+		
+	}
+
+	public void editer() {
+		do {
+			// Afficher le menu
+			menuLancer.afficher();
+
+			// Sélectionner une entrée dans le menu
+			menuLancer.selectionner();
+
+			// Valider l'entrée sélectionnée
+			menuLancer.valider();
+			
+			System.out.println();
+			System.out.println();
+
+		} while (! menuLancer.estQuitte());
+	}
+}

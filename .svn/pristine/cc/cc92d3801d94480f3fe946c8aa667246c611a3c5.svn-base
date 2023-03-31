@@ -1,0 +1,11 @@
+package modele;
+
+public class ViragesRapides extends Virages {
+
+	@Override
+	float vitessePassage(Voiture voiture) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}

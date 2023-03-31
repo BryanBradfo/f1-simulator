@@ -1,0 +1,8 @@
+package exceptions;
+
+public class SauvegardeVideException extends Exception {
+	
+	public SauvegardeVideException() {
+		super();
+	}
+}

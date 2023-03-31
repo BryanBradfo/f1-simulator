@@ -1,0 +1,13 @@
+package modele;
+
+
+
+public abstract class ElementVoiture {
+	
+	/** Durée de vie de l'élément. */
+	private float dureeDeVie;
+	
+	/** Perte d'efficacité de l'élément. */
+	public abstract void perteDeVie();
+	
+}

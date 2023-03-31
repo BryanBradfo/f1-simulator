@@ -1,0 +1,68 @@
+package MVC_interface_graphique;
+
+
+import javax.swing.*;
+import java.awt.*;
+
+import MVC_interface_graphique.Contrôle.*;
+import MVC_interface_graphique.Modèle.*;
+import MVC_interface_graphique.Vue.*;
+import modele.Ecurie;
+
+/** Cette classe permet de la ncer le jeu en mode interface graphique
+ * 
+ * @author timwhity
+ * @version 1.4
+ */
+public class Main extends JFrame {
+	
+	public Main() {
+		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		this.menuLancement();
+	}
+	
+	public static void main(String[] args) {
+		new Main();
+	}
+	
+	/** Gère le menu de lancement
+	 * 
+	 */
+	public void menuLancement() {
+		ModeleMenuLancement modele = new ModeleMenuLancement(this);
+		VueMenuLancement vue = new VueMenuLancement(modele);
+		ControleMenuLancement controleur = new ControleMenuLancement(modele, vue);
+		this.getContentPane().removeAll();
+		this.getContentPane().setLayout(new BorderLayout());
+		this.getContentPane().add(vue, BorderLayout.CENTER);
+		this.getContentPane().add(controleur, BorderLayout.SOUTH);
+		this.pack();
+		this.setVisible(true);
+	}
+	
+	/** Gère le menu sauvegarde
+	 * 
+	 */
+	public void menuSauvegarde() {
+		ModeleMenuSave modele = new ModeleMenuSave(this);
+		VueMenuSave vue = new VueMenuSave(modele);
+		ControleMenuSave controle = new ControleMenuSave(modele, vue);
+		
+		this.getContentPane().removeAll();
+		this.getContentPane().add(controle);
+		this.pack();	
+	}
+	
+	public void menuPrincipal() {
+		ModeleMenuPrincipal modele = new ModeleMenuPrincipal(Ecurie.CreerEcurieSimple(), this);
+		VueMenuPrincipal vue = new VueMenuPrincipal(modele);
+		ControleMenuPrincipal controle = new ControleMenuPrincipal(modele);
+		
+		this.getContentPane().removeAll();
+		this.getContentPane().setLayout(new BorderLayout());
+		this.getContentPane().add(vue, BorderLayout.NORTH);
+		this.getContentPane().add(controle, BorderLayout.SOUTH);
+		this.pack();
+	}
+	
+}

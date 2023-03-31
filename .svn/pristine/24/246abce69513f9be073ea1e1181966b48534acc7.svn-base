@@ -1,0 +1,58 @@
+package MVC_interface_graphique.Vue;
+import javax.swing.*;
+import MVC_interface_graphique.Modèle.ModeleMenuResultatsCourse;
+import java.awt.*;
+
+public class VueMenuResultatsCourse extends JPanel {
+	private ModeleMenuResultatsCourse modele;
+	private JPanel phaut;
+	private JPanel pbas;
+	
+	private JLabel Premier;
+	private JLabel Deuxieme;
+	private JLabel Troisieme;
+	private JLabel Reste;
+	
+	public VueMenuResultatsCourse(ModeleMenuResultatsCourse modele) {
+		this.modele = modele;
+		this.setLayout(new BorderLayout());
+		
+		this.phaut = new JPanel();
+		this.pbas = new JPanel();
+		this.phaut.setLayout(new BorderLayout());
+		this.pbas.setLayout(new BorderLayout());
+		
+		this.Premier = new JLabel();
+		this.Premier.setHorizontalAlignment(JLabel.CENTER);
+		this.Premier.setFont(Premier.getFont().deriveFont(35f));
+		this.phaut.add(this.Premier, BorderLayout.NORTH);
+		
+		this.Deuxieme = new JLabel();
+		this.Deuxieme.setHorizontalAlignment(JLabel.CENTER);
+		this.Deuxieme.setFont(Deuxieme.getFont().deriveFont(30f));
+		this.phaut.add(this.Deuxieme, BorderLayout.WEST);
+		
+		this.Troisieme = new JLabel();
+		this.Troisieme.setHorizontalAlignment(JLabel.CENTER);
+		this.Troisieme.setFont(Troisieme.getFont().deriveFont(25f));
+		this.phaut.add(this.Troisieme, BorderLayout.EAST);
+		
+		this.Reste = new JLabel();
+		this.Reste.setHorizontalAlignment(JLabel.LEFT);
+		this.Reste.setFont(Reste.getFont().deriveFont(18f));
+		this.pbas.add(this.Reste, BorderLayout.SOUTH);
+		
+		this.add(phaut, BorderLayout.NORTH);
+		this.add(pbas, BorderLayout.CENTER);
+		
+		mettreAJour();
+	}
+	
+	public void mettreAJour() {
+		this.Premier.setText("1.     " + modele.getPremier()[0] + "     " + modele.getPremier()[1]);
+		this.Deuxieme.setText("2.     " + modele.getSecond()[0] + "     " + modele.getSecond()[1]);
+		this.Troisieme.setText("3.     " + modele.getThird()[0] + "     " + modele.getThird()[1]);
+		this.Reste.setText(modele.getReste()[0]);
+		
+	}
+}

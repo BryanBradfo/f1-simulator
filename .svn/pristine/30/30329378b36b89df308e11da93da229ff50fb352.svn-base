@@ -1,0 +1,47 @@
+package MVC_interface_graphique.Contrôle;
+
+import java.awt.*;
+import javax.swing.*;
+
+import MVC_interface_graphique.Modèle.ModeleMenuLancement;
+import MVC_interface_graphique.Vue.VueMenuLancement;
+
+/** Cette classe crée un JPanel controlant les boutons du menu principal.
+ * 
+ * @version 1.1
+ */
+public class ControleMenuLancement extends JPanel {
+
+	private static final long serialVersionUID = 6562232737343781962L;  	// Numéro de Série (utile si besoin de serialiser la classe)
+
+	public ControleMenuLancement(ModeleMenuLancement modele, VueMenuLancement vue) {
+		super(new FlowLayout());
+
+		ImageIcon img = new ImageIcon("img/bouton.png");
+
+		JButton bJouer = new JButton(img);
+		JButton bOptions = new JButton("Options");
+		JButton bQuitter = new JButton("Quitter");
+
+		bJouer.setOpaque(false);
+		bJouer.setBorderPainted(false);
+		bJouer.setContentAreaFilled(false);
+
+		this.add(bJouer);
+		this.add(bOptions);
+		this.add(bQuitter);
+
+		bQuitter.addActionListener(ev -> {
+			System.exit(0);
+		});
+		bJouer.addActionListener(ev -> {
+			modele.lancerMenuSave();
+			vue.mettreAJour();
+		});
+		bOptions.addActionListener(ev -> {
+			modele.lancerMenuOptions();
+			vue.mettreAJour();
+		});
+	}
+
+}

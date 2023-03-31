@@ -1,0 +1,13 @@
+
+
+public class Chassis extends ElementVoiture {
+	
+	/** Efficacité du chassis. */
+	private int efficacite;
+
+	/** Perte d'efficacité du chassis. */
+	@Override
+	public void perteDeVie() {
+		
+	}
+}

@@ -1,0 +1,151 @@
+package MVC_interface_graphique;
+
+
+import javax.swing.*;
+import java.awt.*;
+
+import MVC_interface_graphique.Contrôle.*;
+import MVC_interface_graphique.Modèle.*;
+import MVC_interface_graphique.Vue.*;
+import exceptions.EcurieNullException;
+import exceptions.NumSaveInconnuException;
+import modele.Classement;
+import modele.Ecurie;
+
+/** Cette classe permet de la ncer le jeu en mode interface graphique
+ * 
+ * @author timwhity
+ * @version 1.4
+ */
+public class Main extends JFrame {
+	
+	private int numSave = -1;									// Numéro de la sauvegarde en cours
+	private Ecurie ecurieSave[] = new Ecurie[3];				// Les 3 écuries sauvegardées
+	private Ecurie[][] ecuriesOpposantsSave = new Ecurie[3][3];	// Les 3x3 ecuries des opposants
+	
+	public Main() {
+		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		this.menuLancement();
+	}
+	
+	public static void main(String[] args) {
+		new Main();
+	}
+	
+	/** Gère le menu de lancement
+	 * 
+	 */
+	public void menuLancement() {
+		ModeleMenuLancement modele = new ModeleMenuLancement(this);
+		VueMenuLancement vue = new VueMenuLancement(modele);
+		ControleMenuLancement controleur = new ControleMenuLancement(modele, vue);
+		this.getContentPane().removeAll();
+		this.getContentPane().setLayout(new BorderLayout());
+		this.getContentPane().add(vue, BorderLayout.CENTER);
+		this.getContentPane().add(controleur, BorderLayout.SOUTH);
+		this.pack();
+		this.setVisible(true);
+	}
+	
+	/** Gère le menu sauvegarde
+	 * 
+	 */
+	public void menuSauvegarde() {
+		ModeleMenuSave modele = new ModeleMenuSave(this);
+		VueMenuSave vue = new VueMenuSave(modele);
+		ControleMenuSave controle = new ControleMenuSave(modele, vue);
+		
+		this.getContentPane().removeAll();
+		this.getContentPane().add(controle);
+		this.pack();	
+	}
+	
+	public void menuPrincipal() {
+		
+		if (this.numSave == -1) {
+			throw new NumSaveInconnuException();
+		}
+		
+		ModeleMenuPrincipal modele = new ModeleMenuPrincipal(this);
+		VueMenuPrincipal vue = new VueMenuPrincipal(modele);
+		ControleMenuPrincipal controle = new ControleMenuPrincipal(modele);
+		
+		this.getContentPane().removeAll();
+		this.getContentPane().setLayout(new BorderLayout());
+		this.getContentPane().add(vue, BorderLayout.NORTH);
+		this.getContentPane().add(controle, BorderLayout.SOUTH);
+		this.pack();
+	}
+	
+	public void menuVoiture() {
+		
+		if (this.numSave == -1) {
+			throw new NumSaveInconnuException();
+		}
+		
+		ModeleMenuVoiture modele = new ModeleMenuVoiture(this);
+		VueMenuVoiture vue = new VueMenuVoiture(modele);
+		ControleMenuVoiture controle = new ControleMenuVoiture(modele, vue);
+		
+		this.getContentPane().removeAll();
+		this.getContentPane().setLayout(new BorderLayout());
+		this.getContentPane().add(vue, BorderLayout.CENTER);
+		this.getContentPane().add(controle, BorderLayout.SOUTH);
+		this.pack();
+	}
+	
+	
+	public void menuResultat(Classement c) {
+		if (this.numSave == -1) {
+			throw new NumSaveInconnuException();
+		}
+		ModeleMenuResultatsCourse modele = new ModeleMenuResultatsCourse(this, c);
+		VueMenuResultatsCourse vue = new VueMenuResultatsCourse(modele);
+		ControleMenuResultatsCourse controle = new ControleMenuResultatsCourse(modele, vue);
+		
+		this.getContentPane().removeAll();
+		this.getContentPane().setLayout(new BorderLayout());
+		this.getContentPane().add(vue, BorderLayout.CENTER);
+		this.getContentPane().add(controle, BorderLayout.SOUTH);
+		this.pack();
+	}
+	
+	
+	/** @return Les 3 écuries sauvegardées
+	 */
+	public Ecurie[] getEcurieSave() {
+		return this.ecurieSave;
+	}
+	
+	/** @return Les 3*3 écuries des opposants sauvegardées
+	 */
+	public Ecurie[][] getEcuriesOpposantsSave() {
+		return this.ecuriesOpposantsSave;
+	}
+	
+	/** @return L'écurie de la sauvegarde en cours
+	 */
+	public Ecurie getEcurie() {
+		if (this.numSave == -1) {
+			throw new NumSaveInconnuException();
+		}
+		return this.ecurieSave[this.numSave];
+	}
+	
+	/** @return Les écuries opposées de la sauvegarde en cours
+	 */
+	public Ecurie[] getEcuriesOpposants() {
+		if (this.numSave == -1) {
+			throw new NumSaveInconnuException();
+		}
+		return this.ecuriesOpposantsSave[this.numSave];
+	}
+	
+	/** Définit le numéro de la sauvegarde en cours.
+	 * @param num
+	 */
+	public void setNumSave(int num) {
+		this.numSave = num;
+	}
+	
+}

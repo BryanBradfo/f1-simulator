@@ -1,0 +1,231 @@
+package modele;
+
+import java.util.Arrays;
+
+public class Ecurie {
+	private String nom;
+	private String description;
+	private String[] sponsors;
+	private int budget;
+	private int classement;
+	private Experience exp; // a changer pour la classe
+	
+	/** Deux pilotes propres à chaque écurie
+	 */
+	private Pilote[] pilotes;
+	
+	/** L'écurie a un modèle améliorable de voiture, les pilotes commencent chaque course avec une voiture ayant ces mêmes caractéristiques.
+	 */
+	private Voiture voiture;
+	
+	
+	public static Ecurie CreerEcurieSimple(){
+		String[] defaultsp = {"Nestle", "Adidas", "Ada", null};
+		return new Ecurie("Roger", "Gerard", defaultsp, 10000, 1, Pilote.creerPilotebasique(), Pilote.creerPilotebasique2(), Voiture.creerVoitureBasique());
+	} 
+
+	public Ecurie(String nom, String description, String[] sponsors, int budget, int classement,Pilote p1, Pilote p2, Voiture v) {
+		this.nom = nom;
+		this.description = description;
+		this.sponsors = sponsors;
+		this.budget = budget;
+		this.classement = classement;
+		this.exp = new Experience();
+		this.pilotes = new Pilote[2];
+		this.pilotes[0] = new Pilote(p1.getNom(), p1.getPrenom(), p1.getNationalite(), p1.getNumero(), p1.getAge(), p1.getSexe(), p1.getTaille(), p1.getPoids(), p1.getExp());
+		this.pilotes[1] = new Pilote(p2.getNom(), p2.getPrenom(), p2.getNationalite(), p2.getNumero(), p2.getAge(), p2.getSexe(), p2.getTaille(), p2.getPoids(), p2.getExp());
+		this.voiture = v.copierVoiture();
+		this.pilotes[0].setVoiture(this.voiture);
+		this.pilotes[1].setVoiture(this.voiture);
+	}
+	
+	// Getters
+	/** Renvoie le nom de l'écurie choisi par le programmeur
+	 * @return nom de l'écurie
+	 */
+	public String getNom() {
+		return this.nom;
+	}
+
+	/** Renvoie l'expérience de l'écurie
+	 * @return expérience de l'écurie
+	 */
+	public Experience getExp() {
+		return exp.copierExperience();
+	}
+
+	/** Renvoie des informations historique de l'écurie :
+	 * La date de création, etc...
+	 * @return description de l'écurie
+	 */
+	public String getDescription() {
+		return this.description;
+	}
+	
+	/** Renvoie le tableau des sponsors de l'écurie
+	 * @return tableau de sponsors
+	 */
+	public String[] getSponsors() {
+		int i;
+		for(i = 0; this.sponsors[i] != null; ++i);
+		String[] res = new String[i];
+		for (int j = 0; j < i; j++) {
+			res[j] = this.sponsors[j];
+		}
+		
+		return this.sponsors;
+	}
+	
+	/** Renvoie le budget de l'écurie
+	 * @return budget
+	 */
+	public int getBudget() {
+		return this.budget;
+	}
+	
+	/**Renvoie le classement de l'écurie 
+	 * @return classement
+	 */
+	public int getClassement() {
+		return this.classement;
+	}
+	
+	/**Renvoie les deux pilotes associés à l'écurie
+	 * @return tableau de pilote
+	 */
+	public Pilote[] getPilotes() {
+		Pilote[] p = new Pilote[2];
+		p[0] = this.pilotes[0].copierPilote();
+		p[1] = this.pilotes[1].copierPilote();
+		return p;
+	}
+	
+	public Pilote getPilote1() {
+		return this.pilotes[0].copierPilote();
+	}
+
+	public Pilote getPilote2() {
+		return this.pilotes[1].copierPilote();
+	}
+
+	/**Renvoie la voiture associée à l'écurie
+	 * @return voiture
+	 */
+	public Voiture getVoiture() {
+		 return this.voiture.copierVoiture();
+	}
+	
+	public Experience getExperience() {
+		return this.exp.copierExperience();
+	}
+	
+	// Méthodes
+	/**Calcul le budget disponible de l'écurie à partir de son budget actuel et son classement
+	 * 
+	 * @return le nouveau budget
+	 */
+	public int calculerBudget() {
+		return this.classement;
+	}
+	
+	/**Calcul le gain d'expérience de l'écurie après la course
+	 * @param exp
+	 */
+	public void gagnerExperience(double exp) {
+		this.exp.augmenterProgression(exp);
+	}
+	
+	/** Calcul le boost d'expérience de l'écurie en fonction de son niveau actuel et de son classement
+	 * Utilisé par gagnerExperience
+	 * @return boost
+	 */
+	private double calculerBoost() {
+		return 1;//return this.classement + this.exp;//.getNiveau()/10;
+	}
+	
+	/** Calcule le cout d'amélioration de la voiture
+	 * @return le cout d'amélioration de la voiture
+	 */
+	public int coutAmeliorerVoiture() {
+		return 100*this.voiture.getIndicesPerformances();
+	}
+	
+	/** Améliore la voiture de l'écurie que les pilotes utilisent
+	 * @return boolean true si voiture améliorer, false sinon
+	 */
+	public boolean ameliorerVoiture() {
+		int coutlevelup = 100 * this.voiture.getIndicesPerformances();
+		if (this.budget >= coutlevelup) {
+			this.voiture.ameliorerPerformances();
+			this.pilotes[0].setVoiture(this.voiture);
+			this.pilotes[1].setVoiture(this.voiture);
+			this.budget -= coutlevelup;
+			return true;
+		}
+		return false;
+		
+	}
+
+	
+	public void reparervoiture() {
+		this.voiture.reparerVoiture();
+	}
+	
+
+	// equals et toString
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Ecurie other = (Ecurie) obj;
+		if (budget != other.budget)
+			return false;
+		if (classement != other.classement)
+			return false;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
+		if (exp == null) {
+			if (other.exp != null)
+				return false;
+		} else if (!exp.equals(other.exp))
+			return false;
+		if (nom == null) {
+			if (other.nom != null)
+				return false;
+		} else if (!nom.equals(other.nom))
+			return false;
+		if (!Arrays.equals(pilotes, other.pilotes))
+			return false;
+		if (!Arrays.equals(sponsors, other.sponsors))
+			return false;
+		if (voiture == null) {
+			if (other.voiture != null)
+				return false;
+		} else if (!voiture.equals(other.voiture))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString(){
+		String sp = "";
+		for (int i = 0; this.sponsors[i] != null; i++){
+			sp = sp + this.sponsors[i] + ", ";	
+		}
+		return "Ecurie : " + this.nom + " \n" + this.description +"\nSponsors: "+ sp + "budget: " + this.budget + " DOGE coins, classement: " + 
+		this.classement + "\n" + this.exp.toString() + "\nPilote 1 : " + this.pilotes[0].toString() + "\nPilote 2 : " + this.pilotes[1].toString() + 
+		"\n" + this.voiture.toString() + "\n";
+
+	}
+
+	
+	
+}

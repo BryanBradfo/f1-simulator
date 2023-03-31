@@ -1,0 +1,26 @@
+package MVC_interface_graphique.Contrôle;
+
+import java.awt.*;
+
+import javax.swing.*;
+
+import MVC_interface_graphique.Modèle.ModeleMenuResultatsCourse;
+import MVC_interface_graphique.Vue.VueMenuResultatsCourse;
+
+public class ControleMenuResultatsCourse extends JPanel {
+
+	private ModeleMenuResultatsCourse modele;
+	private VueMenuResultatsCourse vue;
+	
+	public ControleMenuResultatsCourse(ModeleMenuResultatsCourse modele, VueMenuResultatsCourse vue) {
+		this.modele = modele;
+		this.vue = vue;
+		
+		JButton bvalider = new JButton("Valider");
+		this.add(bvalider);
+		bvalider.addActionListener(ev -> {
+			this.modele.goMenuPrincipal();
+		});
+	}
+
+}

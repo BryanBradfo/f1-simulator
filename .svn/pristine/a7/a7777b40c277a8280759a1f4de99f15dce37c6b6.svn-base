@@ -1,0 +1,61 @@
+package MVC_interface_graphique.Vue;
+
+import javax.swing.*;
+import MVC_interface_graphique.Modèle.ModeleMenuVoiture;
+import java.awt.*;
+
+
+/** Cette classe créée un JPanel contenant les informations principales sur le jeu.
+ * 
+ * @author Timothée Blanchy
+ * @version 1.0
+ */
+public class VueMenuVoiture extends JPanel {
+	private ModeleMenuVoiture modele;
+	private JPanel phaut;
+	private JPanel pbas;
+	
+	private JLabel lBudget;
+	private JLabel lInfosVoiture;
+	private JLabel lPrixAmelioration;
+	private JLabel lMessage;
+	
+	public VueMenuVoiture(ModeleMenuVoiture modele) {
+		this.modele = modele;
+		this.setLayout(new BorderLayout());
+		
+		this.phaut = new JPanel();
+		this.pbas = new JPanel();
+		this.phaut.setLayout(new BorderLayout());
+		this.pbas.setLayout(new BorderLayout());
+		
+		this.lBudget = new JLabel();
+		this.lBudget.setHorizontalAlignment(JLabel.CENTER);
+		this.lBudget.setFont(lBudget.getFont().deriveFont(18f));
+		this.phaut.add(this.lBudget, BorderLayout.WEST);
+		this.lInfosVoiture = new JLabel();
+		this.lInfosVoiture.setHorizontalAlignment(JLabel.CENTER);
+		this.lInfosVoiture.setFont(lInfosVoiture.getFont().deriveFont(18f));
+		this.pbas.add(this.lInfosVoiture, BorderLayout.CENTER);
+		this.lPrixAmelioration = new JLabel();
+		this.lPrixAmelioration.setHorizontalAlignment(JLabel.CENTER);
+		this.lPrixAmelioration.setFont(lPrixAmelioration.getFont().deriveFont(18f));
+		this.pbas.add(this.lPrixAmelioration, BorderLayout.SOUTH);
+		this.lMessage = new JLabel();
+		this.lMessage.setHorizontalAlignment(JLabel.CENTER);
+		this.lMessage.setFont(lMessage.getFont().deriveFont(18f));
+		this.add(this.lMessage, BorderLayout.SOUTH);
+		
+		this.add(pbas, BorderLayout.CENTER);
+		this.add(phaut, BorderLayout.NORTH);
+		
+		mettreAJour();
+	}
+	
+	public void mettreAJour() {		
+		lBudget.setText("Budget : " + modele.getBudget());
+		lInfosVoiture.setText("Voiture : " + modele.getInfosVoitures());
+		lPrixAmelioration.setText("Prix de la prochaine amélioration : " + modele.getCoutAmelioration());
+		lMessage.getText(modele.getMessage());
+	}
+}

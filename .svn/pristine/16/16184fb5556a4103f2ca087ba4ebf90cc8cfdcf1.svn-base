@@ -1,0 +1,26 @@
+import java.util.ArrayList;
+
+public class MenuTerminal implements Menu {
+	
+	private String nom;  // Nom du menu
+	private ArrayList<Choix> choix;
+
+	public MenuTerminal(String nom, ArrayList<Choix> choix) {
+		this.nom = nom;
+		this.choix = choix;
+	}
+	
+	public void launch() {
+		System.out.println("[============================]");
+		System.out.println("Nom du menu : " + nom);
+		System.out.println("Que souhaitez vous faire ?");
+		System.out.println();
+		
+		
+		for (Choix c : this.choix) {
+			System.out.println(c.getDesc());
+		}
+		
+	}
+
+}

@@ -1,0 +1,74 @@
+package modele;
+
+/** Un stand est associé à un circuit.
+* Il a donc un nombre de places spécifiques pour chaque monoplace.
+* Il est établi sur une ligne droite, en général la ligne de départ/arrivée.
+* Une vitesse max limite le passage dans la ligne des stands (60 ou 80 km/h)
+* Un temps d'arrêt moyen est établi pour chaque stand pour avoir une référence.
+*
+* @author  Hautesserres Simon
+* @version 1.0
+*/
+
+public class Stands extends ElementCircuit {
+
+	/** Nom du circuit */
+	private int nombrePlaces;
+	/** Temps arrêt moyen en secondes */
+	private int tempsArretMoyen;
+	
+	/** Construire le stands avec son nombre de places, sa longueur et la vitesse max dans le super constructeur et le temps d'arret moyen
+	 * @param nombrePlaces le nombres de F1 pouvant se garer
+	 * @param longueur la longueur de la voie des stands
+	 * @param vitesseMax la vitesse max dans la voie des stands
+	 * @param tempsArretMoyen le temps d'arret moyen
+	 */
+	public Stands (int nombrePlaces, double longueur, double vitesseMax, int tempsArretMoyen) {
+		super(longueur, vitesseMax);
+		this.nombrePlaces = nombrePlaces;
+		this.tempsArretMoyen = tempsArretMoyen;
+	}
+	
+	public static Stands creerStands(int nombrePlaces, double longueur, double vitesseMax, int tempsArretMoyen) {
+		return new Stands(nombrePlaces, longueur, vitesseMax, tempsArretMoyen);
+	}
+	
+	/** Calcule le temps d'arret en prenant compte plusieurs paramètres (dont 1 aléatoire=
+	 * @return tempsArret
+	 */
+	public int effectuerArret() {
+		return 0;
+	}
+
+	/** Obtenir le nombre de places de la voie des stands
+	 * @return nombrePlaces
+	 */
+	public int getNombrePlaces() {
+		return nombrePlaces;
+	}
+
+	/** Obtenir la longueur des stands
+	 * @return longueur
+	 */
+	public double getLongueur() {
+		return super.getLongueur();
+	}
+	
+	/** Obtenir la vitesse max dans les stands
+	 * @return vitessemax
+	 */
+	public double getVitesseMoyenne() {
+		return super.getVitesseMoyenne();
+	}
+
+
+	/** Obtenir le temps d'arret moyen dans les stands
+	 * @return tempsArretMoyen
+	 */
+	public int getTempsArretMoyen() {
+		return tempsArretMoyen;
+	}
+	
+	
+	
+}

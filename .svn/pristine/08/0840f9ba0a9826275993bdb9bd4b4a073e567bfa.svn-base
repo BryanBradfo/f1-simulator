@@ -1,0 +1,43 @@
+package MVC_interface_graphique;
+
+
+import javax.swing.*;
+import java.awt.*;
+
+import MVC_interface_graphique.Contrôle.*;
+import MVC_interface_graphique.Modèle.*;
+import MVC_interface_graphique.Vue.*;
+
+
+public class Main extends JFrame {
+
+	public Main() {
+		ModeleMenuLancement modele = new ModeleMenuLancement();
+		VueMenuLancement vue = new VueMenuLancement(modele);
+		ControleMenuLancement controleur = new ControleMenuLancement(modele, vue);
+		this.getContentPane().setLayout(new BorderLayout());
+		this.getContentPane().add(vue, BorderLayout.CENTER);
+		this.getContentPane().add(controleur, BorderLayout.SOUTH);
+		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		this.pack();
+		this.setVisible(true);
+		this.menuSauvegarde();
+	}
+	
+	public static void main(String[] args) {
+		new Main();
+	}
+	
+	public void menuSauvegarde() {
+		ModeleMenuSave modele = new ModeleMenuSave();
+		VueBoutonMenuSave vueB1 = new VueBoutonMenuSave(modele, 0);
+		VueBoutonMenuSave vueB2 = new VueBoutonMenuSave(modele, 1);
+		VueBoutonMenuSave vueB3 = new VueBoutonMenuSave(modele, 2);
+		ControleMenuSave controle = new ControleMenuSave(modele, vueB1, vueB2, vueB3);
+		
+		this.getContentPane().removeAll();
+		this.getContentPane().add(controle);
+		
+	}
+	
+}

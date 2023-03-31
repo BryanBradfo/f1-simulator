@@ -1,0 +1,25 @@
+package vue.sousmenus.commandes;
+
+import modele.Circuit;
+import vue.menu.Commande;
+
+public class CommandeLancerCourse implements Commande {
+
+	private Circuit circuit;
+
+	public CommandeLancerCourse(Circuit circuit) {
+		this.circuit = circuit;
+	}
+
+
+	@Override
+	public void executer() {
+		// circuit.lancer();
+	}
+
+	@Override
+	public boolean estExecutable() {
+		return true;
+	}
+	
+} 

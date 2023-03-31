@@ -1,0 +1,82 @@
+
+
+public class Voiture {
+	
+	/** Marque de la voiture. */
+	private String marque;
+
+	/** Poids de la voiture. */
+	private float poids;
+
+	/** Indice de performance de la voiture. */
+	private int indicesPerformances;
+
+	/** Indicateur afin de savoir si la voiture est toujours sur la course ou non. */
+	private boolean estEnCourse;
+
+	/** Pilote de la voiture. */
+	private Pilote pilote;
+	
+	/** Construire la voiture à partir de sa marque, son poids, sa performance
+	 * sous forme d'indice et un indicateur pour savoir s'il est en course ou non.
+	 * @param saMarque la marque de la voiture
+	 * @param sonPoids le poids de la voiture
+	 * @param sonIndicePerformance l'indice de performance de la voiture
+	 * @param EnCourse Indicateur pour savoir si la voiture est sur la course ou pas 
+	 * @param sonPilote le pilote de la voiture
+	 */
+	public Voiture(String saMarque, float sonPoids, int sonIndicePerformance, boolean EnCourse, Pilote sonPilote) {
+		this.marque = saMarque;
+		this.poids = sonPoids;
+		this.indicesPerformances = sonIndicePerformance;
+		this.estEnCourse = EnCourse;
+		this.pilote = sonPilote;
+	}
+
+	/** Construire une voiture à partir de ses paramètres (car composition). 
+	 * @param marque la marque de la voiture
+	 * @param poids le poids de la voiture
+	 * @param indicePerformance l'indice de performance de la voiture
+	 * @param enCourse Indicateur pour savoir si la voiture est sur la course ou pas 
+	 * @param pilote le pilote de la voiture
+	 * @return Voiture
+	 */
+	public static Voiture saVoiture(String marque, float poids, int indicePerformance, boolean enCourse, Pilote pilote) {
+		return new Voiture(marque, poids, indicePerformance, enCourse, pilote);
+	}
+	
+	/** Obtenir la marque de la voiture.
+	 * @return marque
+	 */
+	public String getMarque() {
+		return marque;
+	}
+
+	/** Obtenir le poids de la voiture.
+	 * @return poids
+	 */
+	public float getPoids() {
+		return poids;
+	}
+
+	/** Obtenir l'indice de performance de la voiture.
+	 * @return indicesPerformances
+	 */
+	public int getIndicesPerformances() {
+		return indicesPerformances;
+	}
+
+	/** Savoir si la voiture est sur la course ou pas.
+	 * @return estEnCourse
+	 */
+	public boolean isEstEnCourse() {
+		return estEnCourse;
+	}
+	
+	/** Obtenir le pilote de la voiture.
+	 * @return pilote
+	 */
+	public Pilote getPilote() {
+		return pilote;
+	}
+}

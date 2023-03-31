@@ -1,0 +1,58 @@
+package vue.moteurDeJeu;
+
+import modele.*;
+import vue.menu.*;
+import vue.menuPrincipal.*;
+import vue.menuPrincipal.commandes.*;
+
+public class MoteurDeJeu {
+
+	private Menu menuLancer;  // Le menu de démarrage
+	
+	/** Constructeur du jeu, prépare les différentes classes et les sous-menus.
+	 */
+	public MoteurDeJeu() {
+		// Création des classes importantes 
+		Ecurie monEcurie = Ecurie.CreerEcurieSimple();
+
+		// Création du menu de démarrage 
+		menuLancer = new Menu("Menu de lancement");
+		String desc1 = "MENU PRINCIPAL\n\nBienvenue à toi, jeune directeur d'écurie ! Voici le menu d'où tu pourras controler celle-ci !\n";
+		String desc2 = "Tu peux lancer une course, ou t'occuper de tes voitures et ou pilotes\nQuelques infos sur l'écurie : \n\n";
+		String desc3 = "Ecurie : " + monEcurie.getNom() + ", Budget : " + monEcurie.getBudget() + " DogeCoins, classement : " + monEcurie.getClassement(); 
+		MenuPrincipal menuPrincipal = new MenuPrincipal(desc1 + desc2 + desc3);
+		
+		String descVoiture = "MENU CAR MANAGEMENT\n\n" + monEcurie.getVoiture();
+		SousMenu menuVoiture = new SousMenu(descVoiture);
+		
+		String descPilotes = "MENU PILOTES MANAGEMENT\n\nPilote 1 : " + monEcurie.getPilotes()[0] + "\nPilote 2 :" + monEcurie.getPilotes()[1];
+		SousMenu menuPilotes = new SousMenu(descPilotes);
+		
+		menuLancer.ajouter("Jouer", menuPrincipal);
+		menuVoiture.ajouter("Améliorer la voiture",	new CommandeAmeliorerVoiture(monEcurie));
+		
+		menuPrincipal.ajouter("Lancer la course", new CommandeLancerCourse(null));
+		menuPrincipal.ajouter("Gérer les pilotes", menuPilotes);
+		menuPrincipal.ajouter("Gérer les voitures", menuVoiture);
+		
+		
+	}
+
+	public void lancer() {
+		do {
+			// Afficher le menu
+			menuLancer.afficher();
+
+			// Sélectionner une entrée dans le menu
+			menuLancer.selectionner();
+
+			// Valider l'entrée sélectionnée
+			menuLancer.valider();
+			
+			System.out.println();
+			System.out.println();
+			System.out.println();
+
+		} while (! menuLancer.estQuitte());
+	}
+}

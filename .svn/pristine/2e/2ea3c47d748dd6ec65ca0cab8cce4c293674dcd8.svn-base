@@ -1,0 +1,42 @@
+package vue.moteurDeJeu;
+
+import modele.Experience;
+import modele.Pilote;
+import modele.Voiture;
+import vue.menu.*;
+import vue.menuPrincipal.*;
+
+public class MoteurDeJeu {
+
+	private Menu menuLancer;  // Le menu de démarrage
+
+	public MoteurDeJeu() {
+		// Création du menu de démarrage 
+		menuLancer = new Menu("Menu de lancement");
+		MenuPrincipal menuPrincipal = new MenuPrincipal();
+		menuLancer.ajouter("Jouer", menuPrincipal);
+
+		// Création des classes importantes 
+		Pilote pilote1 = new Pilote("Antot", "Stéphane", "Française", 21, "M", 182, 78, new Experience());
+		Voiture voiture1 = new Voiture("Jaguar", 200, 1, false, pilote1);
+
+		
+	}
+
+	public void lancer() {
+		do {
+			// Afficher le menu
+			menuLancer.afficher();
+
+			// Sélectionner une entrée dans le menu
+			menuLancer.selectionner();
+
+			// Valider l'entrée sélectionnée
+			menuLancer.valider();
+			
+			System.out.println();
+			System.out.println();
+
+		} while (! menuLancer.estQuitte());
+	}
+}

@@ -1,0 +1,65 @@
+package modele;
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
+
+public class ExperienceTest {
+	
+ 	// précision
+ 	public final static double EPSILON = 0.001;
+	
+ 	@Test public void testerExperience() {
+		System.out.println("------------------------------------------");
+		System.out.println("TesterExperience");
+		System.out.println("------------------------------------------");
+ 		Pilote Bryan = new Pilote("Chen", "Bryan" ,"Français pur" , 20 , "M" , 1.80 , 71.5, new Experience());
+ 		Bryan.getExp().setBoost(20.0);
+ 		Bryan.gagnerExperience();
+ 		double BryansProgress = Bryan.getExp().progressionToFloat();
+ 		assertEquals(BryansProgress, 20.0, EPSILON);
+ 		System.out.println(Bryan.getExp().toString());
+ 	}
+	
+	@Test public void AugmenterNiveau() {
+		System.out.println("------------------------------------------");
+		System.out.println("AugmenterNiveau_ProgressionA0");
+		System.out.println("------------------------------------------");
+		Pilote Bryan = new Pilote("Chen", "Bryan" ,"Français pur" , 20 , "M" , 1.80 , 71.5, new Experience());
+		//on arrive à 80% de barre de progression avec un boost de 20%
+		Bryan.getExp().setBoost(20.0);
+		Bryan.gagnerExperience();
+		Bryan.gagnerExperience();
+		Bryan.gagnerExperience();
+		Bryan.gagnerExperience();
+		double BryansProgress = Bryan.getExp().progressionToFloat();
+		assertEquals(BryansProgress, 80.0, EPSILON);
+		System.out.println(Bryan.getExp().toString());
+		
+		//on vérifie qu'à 100%, on augmente de niveau et la barre de progression est remise à 0%
+		Bryan.gagnerExperience();
+		double BryansProgress2 = Bryan.getExp().progressionToFloat();
+		assertEquals(BryansProgress2, 0, EPSILON);
+		System.out.println(Bryan.getExp().toString());
+	}
+	
+	@Test public void AugmenterNiveauAvec20Supplementaire() {
+		System.out.println("------------------------------------------");
+		System.out.println("AugmenterNiveau_ProgressionNonA0");
+		System.out.println("------------------------------------------");
+		Pilote Bryan = new Pilote("Chen", "Bryan" ,"Français pur" , 20 , "M" , 1.80 , 71.5, new Experience());
+		//on arrive à 80% de barre de progression avec un boost de 20%
+		Bryan.getExp().setBoost(30.0);
+		Bryan.gagnerExperience();
+		Bryan.gagnerExperience();
+		Bryan.gagnerExperience();
+		double BryansProgress = Bryan.getExp().progressionToFloat();
+		assertEquals(BryansProgress, 90.0, EPSILON);
+		System.out.println(Bryan.getExp().toString());
+		
+		//on vérifie qu'à 100%, on augmente de niveau et la barre de progression est remise à 0%
+		Bryan.gagnerExperience();
+		System.out.println(Bryan.getExp().toString());
+		double BryansProgress2 = Bryan.getExp().progressionToFloat();
+		assertEquals(BryansProgress2, 20.0, EPSILON);
+
+	}
+}

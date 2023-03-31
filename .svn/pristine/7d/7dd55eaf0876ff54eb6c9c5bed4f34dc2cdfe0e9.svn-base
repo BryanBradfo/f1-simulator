@@ -1,0 +1,44 @@
+package modele;
+
+public abstract class Virages {
+	
+	/** Numero du virage dans le circuit auquel il est rattaché */
+	private int numero;
+	/** Nom facultatif du virage */
+	private String nom;
+	/** Longueur du virage */
+	protected double longueur;
+	/** Distance avant le prochain virage = ligne droite*/
+	protected double distanceSuivant;
+	/** Vitesse Moyenne du circuit */
+	protected double vitesseMoyenne;
+	/** Etat de performance du secteur = moyenne des états des virages */
+	protected int etatVirage; 
+	
+	public Virages(int numero, double longueur, double distanceSuivant, double vitesseMoyenne) {
+		this.numero = numero;
+		this.nom = "Virage n°"+numero;
+		this.longueur = longueur;
+		this.distanceSuivant = distanceSuivant;
+		this.vitesseMoyenne = vitesseMoyenne;
+		this.etatVirage = 0;
+	}
+	
+	public Virages(int numero, String nom, double longueur, double distanceSuivant, double vitesseMoyenne) {
+		this.numero = numero;
+		this.nom = nom;
+		this.longueur = longueur;
+		this.distanceSuivant = distanceSuivant;
+		this.vitesseMoyenne = vitesseMoyenne;
+		this.etatVirage = 0;
+	}
+	
+	/* VOITURE A AJOUTER COMME PARAMETRES*/
+	public abstract double tempsPassage();
+	
+	
+	public void changerEtatVirage(int valeur) {
+		this.etatVirage = valeur;
+	}
+
+}

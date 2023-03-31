@@ -1,0 +1,17 @@
+
+
+public class ViragesLents extends Virages {
+	
+
+	public ViragesLents(int numero, double longueur, double vitesseMoyenne) {
+		super(numero, longueur, vitesseMoyenne);
+		
+	}
+
+	@Override
+	public double tempsPassage() {
+		// A CHANGER
+		return super.getLongueur()/(super.getVitesseMoyenne()/3.6);
+	}
+
+}

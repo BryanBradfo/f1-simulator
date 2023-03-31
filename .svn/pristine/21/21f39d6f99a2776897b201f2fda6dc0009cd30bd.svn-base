@@ -1,0 +1,37 @@
+package MVC_interface_graphique.Contrôle;
+
+import javax.swing.*;
+
+import MVC_interface_graphique.Modèle.ModeleMenuVoiture;
+import MVC_interface_graphique.Vue.VueMenuVoiture;
+
+/** Cette classe s'occupe des boutons du menu de gestion de la voiture
+ * 
+ * @author Tiomthée Blanchy
+ * @version 1.0 
+ */
+public class ControleMenuVoiture extends JPanel {
+	
+	private ModeleMenuVoiture modele;	// Modèle du menu voiture
+	private VueMenuVoiture vue; 
+
+	public ControleMenuVoiture(ModeleMenuVoiture modele, VueMenuVoiture vue) {
+		this.modele = modele;
+		this.vue = vue;
+		
+		JButton bRetour = new JButton("Retour au menu");
+		JButton bAmeliorer = new JButton("Améliorer la voiture");
+		
+		this.add(bRetour);
+		this.add(bAmeliorer);
+		
+		bRetour.addActionListener(ev -> {
+			this.modele.goMenuPrincipal();
+		});
+		bAmeliorer.addActionListener(ev -> {
+			this.modele.ameliorerVoiture();
+			this.vue.mettreAJour();
+		});
+	}
+
+}

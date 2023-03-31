@@ -1,0 +1,63 @@
+package MVC_interface_graphique.Vue;
+
+import javax.swing.*;
+import MVC_interface_graphique.Modèle.ModeleMenuVoiture;
+import java.awt.*;
+
+
+/** Cette classe créée un JPanel contenant les informations principales sur le jeu.
+ *
+ * @version 1.0
+ */
+public class VueMenuVoiture extends JPanel {
+	
+	private static final long serialVersionUID = 944094346607446622L;		// Numéro de Série (utile si besoin de serialiser la classe)
+	private ModeleMenuVoiture modele;		// Modèle du menu
+	private JPanel phaut;					// JPanel en haut du menu
+	private JPanel pbas;					// JPannel en bas du menu
+	
+	private JLabel lBudget;					// JLabel affichant le budget disponible
+	private JLabel lInfosVoiture;			// JLabel affichant les infos sur la voiture
+	private JLabel lPrixAmelioration;		// JLabel affichant le prix d'amélioration dela voiture
+	private JLabel lMessage;				// Jlabel affichant un message de retour
+	
+	public VueMenuVoiture(ModeleMenuVoiture modele) {
+		this.modele = modele;
+		this.setLayout(new BorderLayout());
+		
+		this.phaut = new JPanel();
+		this.pbas = new JPanel();
+		this.phaut.setLayout(new BorderLayout());
+		this.pbas.setLayout(new BorderLayout());
+		
+		this.lBudget = new JLabel();
+		this.lBudget.setHorizontalAlignment(JLabel.CENTER);
+		this.lBudget.setFont(lBudget.getFont().deriveFont(18f));
+		this.phaut.add(this.lBudget, BorderLayout.WEST);
+		this.lInfosVoiture = new JLabel();
+		this.lInfosVoiture.setHorizontalAlignment(JLabel.CENTER);
+		this.lInfosVoiture.setFont(lInfosVoiture.getFont().deriveFont(18f));
+		this.pbas.add(this.lInfosVoiture, BorderLayout.CENTER);
+		this.lPrixAmelioration = new JLabel();
+		this.lPrixAmelioration.setHorizontalAlignment(JLabel.CENTER);
+		this.lPrixAmelioration.setFont(lPrixAmelioration.getFont().deriveFont(18f));
+		this.pbas.add(this.lPrixAmelioration, BorderLayout.SOUTH);
+		this.lMessage = new JLabel();
+		this.lMessage.setHorizontalAlignment(JLabel.CENTER);
+		this.lMessage.setFont(lMessage.getFont().deriveFont(18f));
+		this.add(this.lMessage, BorderLayout.SOUTH);
+		
+		this.add(pbas, BorderLayout.CENTER);
+		this.add(phaut, BorderLayout.NORTH);
+		
+		mettreAJour();
+	}
+	
+	/** mets à jour la vue du menu */
+	public void mettreAJour() {		
+		lBudget.setText("Budget : " + modele.getBudget());
+		lInfosVoiture.setText("Voiture : " + modele.getInfosVoitures());
+		lPrixAmelioration.setText("Prix de la prochaine amélioration : " + modele.getCoutAmelioration());
+		lMessage.setText(modele.getMessage());
+	}
+}

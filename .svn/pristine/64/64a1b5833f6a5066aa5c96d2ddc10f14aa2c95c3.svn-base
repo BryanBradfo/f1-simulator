@@ -1,0 +1,20 @@
+package vue.sousmenus;
+
+import modele.Ecurie;
+import vue.menu.SousMenu;
+
+public class MenuPilotes extends SousMenu {
+	
+	private Ecurie monEcurie;
+	
+	public MenuPilotes(Ecurie ecurie) {
+		super("");
+		this.monEcurie = ecurie;
+	}
+	
+	@Override
+	public void update() {
+		this.setTitre("MENU PILOTES MANAGEMENT\n\nPilote 1 : " + monEcurie.getPilotes()[0] + "\nPilote 2 :" + monEcurie.getPilotes()[1]);
+	}
+	
+}

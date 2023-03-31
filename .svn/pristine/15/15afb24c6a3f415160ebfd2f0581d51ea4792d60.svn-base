@@ -1,0 +1,37 @@
+package modele;
+
+public class Ecurie {
+	private String nom;
+	private String[] sponsors;
+	private int budget;
+	private int classement;
+	
+	
+	public Ecurie(String nom, String[] sponsors, int budget, int classement) {
+		this.nom = nom;
+		this.sponsors = sponsors;
+		this.budget = budget;
+		this.classement = classement;
+	}
+	
+	public int calculerBudget() {
+		return 0;
+	}
+	
+	public void gagnerExperience(float exp) {
+		
+	}
+	
+	public int calculerBoost() {
+		return 0;
+	}
+	
+	//public void choixPilote(Pilote[] p) {
+		
+	//}
+	
+	//public void choixVoiture(Voiture[] v) {
+	
+	//}
+	
+}

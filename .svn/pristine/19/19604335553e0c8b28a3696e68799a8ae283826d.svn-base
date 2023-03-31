@@ -1,0 +1,24 @@
+package MVC_interface_graphique.Contrôle;
+
+import javax.swing.*;
+
+import MVC_interface_graphique.Modèle.ModeleMenuPilotes;
+import MVC_interface_graphique.Vue.VueMenuPilotes;
+
+/** Cette classe gère les contrôles du menu de gestion des pilotes
+ * 
+ * @version 1.1
+ */
+public class ControleMenuPilotes extends JPanel {
+	
+	private static final long serialVersionUID = 1908895633260723849L;		// Numéro de Série (utile si besoin de serialiser la classe)
+	
+	public ControleMenuPilotes(ModeleMenuPilotes modele, VueMenuPilotes vue) {
+		JButton bRet = new JButton("Retour au menu");
+		this.add(bRet);
+		
+		bRet.addActionListener(ev -> {
+			modele.goMenuPrincipal();
+		});
+	}
+}

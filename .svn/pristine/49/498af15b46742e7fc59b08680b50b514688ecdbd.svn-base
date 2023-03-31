@@ -1,0 +1,15 @@
+package modele;
+
+
+
+public class Frein extends ElementVoiture {
+	
+	/** Efficacité du dispositif de freinage. */
+	private int efficacite;
+
+	/** Perte d'efficacité du frein. */
+	@Override
+	public void perteDeVie() {
+		
+	}
+}

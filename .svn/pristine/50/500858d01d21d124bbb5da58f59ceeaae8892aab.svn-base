@@ -1,0 +1,10 @@
+package modele;
+
+public class test {
+	public static void main(String []args) {
+
+		Circuit Bahrein = new Circuit("International de Sakhir", "Bahreïn", 57, 5.412, 15, 3, "1:27:264", "Lewis Hamilton", new EtatCircuit() );
+		System.out.println(Bahrein);
+	}
+	
+}

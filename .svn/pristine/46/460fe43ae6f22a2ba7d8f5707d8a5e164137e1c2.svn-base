@@ -1,0 +1,15 @@
+
+public abstract class Choix {
+	
+	private String desc;
+	
+	
+	public Choix(String description) {
+		this.desc = description;
+	}
+	
+	public String getDesc() {
+		return this.desc;
+	}
+
+}

@@ -1,0 +1,24 @@
+package MVC_interface_graphique.Contrôle;
+
+import javax.swing.*;
+import MVC_interface_graphique.Modèle.ModeleMenuResultatsCourse;
+import MVC_interface_graphique.Vue.VueMenuResultatsCourse;
+
+/** Cette classe gère les contrôles du Menu de résulat des courses
+ * 
+ * @version 1.1
+ */
+public class ControleMenuResultatsCourse extends JPanel {
+
+	private static final long serialVersionUID = 3677524542962174316L;		// Numéro de Série (utile si besoin de serialiser la classe)
+	
+	public ControleMenuResultatsCourse(ModeleMenuResultatsCourse modele, VueMenuResultatsCourse vue) {
+		
+		JButton bvalider = new JButton("Valider");
+		this.add(bvalider);
+		bvalider.addActionListener(ev -> {
+			modele.goMenuPrincipal();
+		});
+	}
+
+}

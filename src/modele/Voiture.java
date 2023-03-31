@@ -1,0 +1,237 @@
+package modele;
+
+import java.io.Serializable;
+
+public class Voiture implements Serializable {
+	
+	private static final long serialVersionUID = -8775640632517775156L;			// Numéro de Série (permet d'éviter des erreurs de sérialisation de la classe)
+
+	/** Marque de la voiture. */
+	private String marque;
+
+	/** Poids de la voiture. */
+	private float poids;
+
+	/** Indice de performance de la voiture en pourcentage. */
+	private int indicesPerformances;
+
+	/** Indicateur afin de savoir si la voiture est toujours sur la course ou non. */
+	private boolean estEnCourse;
+	
+	/* éléments de Voiture */
+	
+	private Chassis chassis;
+	private Frein frein;
+	private Aerodynamique aero;
+	private Moteur moteur;
+	private Roue roue;
+	
+	
+	
+	/** Construire la voiture à partir de sa marque, son poids, sa performance
+	 * sous forme d'indice et un indicateur pour savoir s'il est en course ou non.
+	 * @param saMarque la marque de la voiture
+	 * @param sonPoids le poids de la voiture
+	 * @param sonIndicePerformance l'indice de performance de la voiture
+	 * @param EnCourse Indicateur pour savoir si la voiture est sur la course ou pas 
+	 */
+	public Voiture(String saMarque, float sonPoids, int sonIndicePerformance, boolean EnCourse) {
+		this.marque = saMarque;
+		this.poids = sonPoids;
+		this.indicesPerformances = sonIndicePerformance;
+		this.estEnCourse = EnCourse;
+		this.aero = new Aerodynamique(sonIndicePerformance);
+		this.chassis = new Chassis(sonIndicePerformance);
+		this.frein = new Frein(sonIndicePerformance);
+		this.moteur = new Moteur(sonIndicePerformance);
+		this.roue = new Roue(saMarque, sonIndicePerformance);
+	}
+	
+	public static Voiture creerVoitureBasique() {
+		return new Voiture("Mercedes", 752, 70, false);
+	}
+
+	private Voiture(String saMarque, float sonPoids, int sonIndicePerformance, boolean EnCourse, Aerodynamique aero, Chassis chassis, Frein frein, Moteur moteur, Roue roue) {
+		this.marque = saMarque;
+		this.poids = sonPoids;
+		this.indicesPerformances = sonIndicePerformance;
+		this.estEnCourse = EnCourse;
+		this.aero = aero.copie();
+		this.chassis = chassis.copie();
+		this.frein = frein.copie();
+		this.moteur = moteur.copie();
+		this.roue = roue.copie();
+	}
+	
+	/** Obtenir la marque de la voiture.
+	 */
+	public String getMarque() {
+		return marque;
+	}
+
+	/** Obtenir le poids de la voiture.
+	 */
+	public float getPoids() {
+		return poids;
+	}
+
+	/** Obtenir l'indice de performance de la voiture.
+	 */
+	public int getIndicesPerformances() {
+		return indicesPerformances;
+	}
+	
+
+	public Chassis getChassis() {
+		return chassis.copie();
+	}
+
+	public Frein getFrein() {
+		return frein.copie();
+	}
+
+	public Aerodynamique getAero() {
+		return aero.copie();
+	}
+
+	public Moteur getMoteur() {
+		return moteur.copie();
+	}
+
+	public Roue getRoue() {
+		return roue.copie();
+	}
+
+	/** Savoir si la voiture est sur la course ou pas.
+	 */
+	public boolean isEstEnCourse() {
+		return estEnCourse;
+	}
+	
+	
+	/** Améliorer les performances de la voiture
+	 */
+	public void ameliorerPerformances() {
+		this.aero.ameliorer();
+		this.chassis.ameliorer();
+		this.frein.ameliorer();
+		this.moteur.ameliorer();
+		this.roue.ameliorer();
+		// Chaque élément contribue pour 1/5 de la performance de la voiture
+		double res = this.aero.getAerodynamisme()/5 + this.chassis.getEfficacite()/5 + this.frein.getEfficacite()/5 + this.moteur.getPuissance()/5 + this.roue.getAdherence()/5;
+		this.indicesPerformances = (int) res;
+	}
+	
+	public boolean ameliorerElementVoiture(String nomelem) {
+		boolean reussite;
+		switch(nomelem) {
+		case "Aerodynamique":
+			reussite = aero.ameliorer();
+			break;
+		case "Chassis":
+			reussite = chassis.ameliorer();
+			break;
+		case "Frein":
+			reussite = frein.ameliorer();
+			break;
+		case "Moteur":
+			reussite = moteur.ameliorer();
+			break;
+		case "Roue":
+			reussite = roue.ameliorer();
+			break;
+		default:
+			reussite = false;
+		}
+		if (reussite) {
+			double res = this.aero.getAerodynamisme()/5 + this.chassis.getEfficacite()/5 + this.frein.getEfficacite()/5 + this.moteur.getPuissance()/5 + this.roue.getAdherence()/5;
+			this.indicesPerformances = (int) res;			
+		}
+		return reussite;
+		
+	}
+	
+	/** Réparer la voiture
+	 */
+	public void reparerVoiture() {
+		aero.reparer();
+		chassis.reparer();
+		frein.reparer();
+		moteur.reparer();
+		roue.reparer();
+	}
+	
+	/**
+	 * Diminuer la vie de la voiture
+	 */
+	public void perteDeVie() {
+		aero.perteDeVie();
+		chassis.perteDeVie();
+		frein.perteDeVie();
+		moteur.perteDeVie();
+		roue.perteDeVie();
+	}
+	
+	/** Copier la voiture
+	 */
+	public Voiture copierVoiture() {
+		return new Voiture(this.getMarque(), this.getPoids(), this.getIndicesPerformances(), this.isEstEnCourse(), aero, chassis, frein, moteur, roue);
+	}
+	
+	/** Afficher la voiture et ses caractéristiques
+	 */
+	@Override public String toString() {
+		return "Voiture {\n\tmarque : " + this.marque + ", \n\tpoids : " + this.poids + " kg, \n\tperformances : " + this.indicesPerformances + "\n\t"
+			    + aero.toString() + "\n\t" + chassis.toString() + "\n\t" + frein.toString() + "\n\t" + moteur.toString() + "\n\t" + roue.toString() + "}";
+	}
+
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Voiture other = (Voiture) obj;
+		if (aero == null) {
+			if (other.aero != null)
+				return false;
+		} else if (!aero.equals(other.aero))
+			return false;
+		if (chassis == null) {
+			if (other.chassis != null)
+				return false;
+		} else if (!chassis.equals(other.chassis))
+			return false;
+		if (estEnCourse != other.estEnCourse)
+			return false;
+		if (frein == null) {
+			if (other.frein != null)
+				return false;
+		} else if (!frein.equals(other.frein))
+			return false;
+		if (indicesPerformances != other.indicesPerformances)
+			return false;
+		if (marque == null) {
+			if (other.marque != null)
+				return false;
+		} else if (!marque.equals(other.marque))
+			return false;
+		if (moteur == null) {
+			if (other.moteur != null)
+				return false;
+		} else if (!moteur.equals(other.moteur))
+			return false;
+		if (Float.floatToIntBits(poids) != Float.floatToIntBits(other.poids))
+			return false;
+		if (roue == null) {
+			if (other.roue != null)
+				return false;
+		} else if (!roue.equals(other.roue))
+			return false;
+		return true;
+	}
+
+}

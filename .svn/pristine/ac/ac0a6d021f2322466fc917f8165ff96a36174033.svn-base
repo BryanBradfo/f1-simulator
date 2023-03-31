@@ -1,0 +1,14 @@
+package modele;
+
+public class Aerodynamique extends ElementVoiture {
+	
+	/** Efficacité du dispositif d'un point de vue aérodynamique. */
+	private int efficacite;
+
+	/** Perte d'efficacité de l'aérodynamique. */
+	@Override
+	public void perteDeVie() {
+		
+	}
+	
+}

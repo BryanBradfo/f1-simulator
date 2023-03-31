@@ -1,0 +1,148 @@
+package MVC_interface_graphique.Vue;
+
+import javax.swing.*;
+import MVC_interface_graphique.Modèle.ModeleMenuVoiture;
+import java.awt.*;
+
+
+/** Cette classe créée un JPanel contenant les informations principales sur le jeu.
+ *
+ * @version 1.0
+ */
+public class VueMenuVoiture extends JPanel {
+	
+	private static final long serialVersionUID = 944094346607446622L;		// Numéro de Série (utile si besoin de serialiser la classe)
+	private ModeleMenuVoiture modele;		// Modèle du menu
+	private JPanel phaut;					// JPanel en haut du menu
+	private JPanel pbas;					// JPanel en bas du menu
+	private JPanel pmilieu;					// JPanel au mileu du menu
+	
+	private JLabel lBudget;					// JLabel affichant le budget disponible
+	private JLabel lPrixAmelioration;		// JLabel affichant le prix d'amélioration dela voiture
+	private JLabel lMessage;				// Jlabel affichant un message de retour
+	
+	
+	// Caractéristiques de la voiture
+	private JPanel pInfosVoiture;			// JPanel affichant les infos sur la voiture
+
+	private JLabel lMarque;
+	private JLabel lPoids;
+	private JLabel lPerformance;
+	private JLabel lChassis;
+	private JLabel lFrein;
+	private JLabel lAero;
+	private JLabel lMoteur;
+	private JLabel lRoue;
+	
+	public VueMenuVoiture(ModeleMenuVoiture modele) {
+		this.modele = modele;
+		this.setLayout(new GridLayout(4,1));
+		
+		this.phaut = new JPanel();
+		this.pmilieu = new JPanel();
+		this.pbas = new JPanel();
+		this.phaut.setLayout(new BorderLayout());
+		this.pbas.setLayout(new FlowLayout());
+		
+		this.lBudget = new JLabel();
+		this.lBudget.setHorizontalAlignment(JLabel.CENTER);
+		this.lBudget.setFont(lBudget.getFont().deriveFont(18f));
+		this.phaut.add(this.lBudget, BorderLayout.WEST);
+		this.pInfosVoiture = new JPanel(new GridLayout(8,1));
+		
+				
+				
+		//JLabel() caractéristiques de la voiture;
+		this.lMarque = new JLabel();
+		this.lMarque.setHorizontalAlignment(JLabel.CENTER);
+		this.lMarque.setFont(lMarque.getFont().deriveFont(18f));
+		this.pInfosVoiture.add(this.lMarque);
+		
+		this.lPoids = new JLabel();
+		this.lPoids.setHorizontalAlignment(JLabel.CENTER);
+		this.lPoids.setFont(lPoids.getFont().deriveFont(18f));
+		this.pInfosVoiture.add("center", this.lPoids);
+		
+		this.lPerformance= new JLabel();
+		this.lPerformance.setHorizontalAlignment(JLabel.CENTER);
+		this.lPerformance.setFont(lPerformance.getFont().deriveFont(18f));
+		this.pInfosVoiture.add("center", this.lPerformance);
+
+		this.lAero = new JLabel();
+		this.lAero.setHorizontalAlignment(JLabel.CENTER);
+		this.lAero.setFont(lAero.getFont().deriveFont(18f));
+		this.pInfosVoiture.add("center", this.lAero);
+
+		
+		this.lChassis = new JLabel();
+		this.lChassis.setHorizontalAlignment(JLabel.CENTER);
+		this.lChassis.setFont(lChassis.getFont().deriveFont(18f));
+		this.pInfosVoiture.add("center", this.lChassis);
+
+		this.lFrein = new JLabel();
+		this.lFrein.setHorizontalAlignment(JLabel.CENTER);
+		this.lFrein.setFont(lFrein.getFont().deriveFont(18f));
+		this.pInfosVoiture.add("center", this.lFrein);
+
+		this.lMoteur = new JLabel();
+		this.lMoteur.setHorizontalAlignment(JLabel.CENTER);
+		this.lMoteur.setFont(lMoteur.getFont().deriveFont(18f));
+		this.pInfosVoiture.add("center", this.lMoteur);
+
+		this.lRoue = new JLabel();
+		this.lRoue.setHorizontalAlignment(JLabel.CENTER);
+		this.lRoue.setFont(lRoue.getFont().deriveFont(18f));
+		this.pInfosVoiture.add("center", this.lRoue);
+
+
+
+		
+		this.pmilieu.add(this.pInfosVoiture, BorderLayout.CENTER);
+		this.lPrixAmelioration = new JLabel();
+		this.lPrixAmelioration.setFont(lPrixAmelioration.getFont().deriveFont(18f));
+		this.pbas.add(this.lPrixAmelioration);
+		this.lMessage = new JLabel();
+		this.lMessage.setFont(lMessage.getFont().deriveFont(18f));
+		
+		this.pInfosVoiture.setVisible(true);
+		this.pmilieu.add(this.pInfosVoiture);
+		
+		this.add(phaut);
+		this.add(pmilieu);
+		this.add(this.lMessage);
+		this.add(pbas);
+		
+		
+		
+		this.mettreAJour();
+	}
+	
+	/** mets à jour la vue du menu */
+	public void mettreAJour() {		
+		lBudget.setText("Budget : " + modele.getBudget());
+		lMarque.setText("Marque : " + modele.getMarque());
+		lPoids.setText("Poids : " + modele.getPoids());
+		lPerformance.setText("Performance : " + modele.getPerformance());
+		lAero.setText("Aerodynamique : " + modele.getAerodynamique());
+		lChassis.setText("Chassis : " + modele.getChassis());
+		lFrein.setText("Frein : " + modele.getFrein());
+		lMoteur.setText("Moteur : " + modele.getMoteur());
+		lRoue.setText("Roue : " + modele.getRoue());
+		lPrixAmelioration.setText("Prix de la prochaine amélioration : " + modele.getCoutAmelioration());
+		lMessage.setText(modele.getMessage());
+		
+		
+		
+	}
+	
+	/**
+	 * Permet au contrôle de rajouter les boutons au bon endroit
+	 * @return l'endroit où les mettre
+	 */
+	public JPanel getPbas() {
+		return this.pbas;
+	}
+
+	
+	
+}

@@ -1,0 +1,28 @@
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
+public class ExperienceTest {
+	
+	// précision
+	public final static double EPSILON = 0.001;
+	
+	@Test public void testerExperience() {
+			Pilote Bryan = new Pilote("Chen", "Bryan" ,"Français pur" , 20 , "M" , 1.80 , 71.5, new Experience());
+			Bryan.getExp().setBoost(20.0);
+			Bryan.gagnerExperience();
+			double BryansProgress = Bryan.getExp().progressionToFloat();
+			assertEquals(BryansProgress, 20.0, EPSILON);
+			System.out.println(Bryan.getExp().toString());
+	}
+	
+	@Test public void AugmenterNiveau() {
+		Pilote Bryan = new Pilote("Chen", "Bryan" ,"Français pur" , 20 , "M" , 1.80 , 71.5, new Experience());
+		Bryan.getExp().setBoost(20.0);
+		Bryan.getExp().augmenterProgression();
+		Bryan.gagnerExperience();
+		double BryansProgress = Bryan.getExp().progressionToFloat();
+		assertEquals(BryansProgress, 20.0, EPSILON);
+		System.out.println(Bryan.getExp().toString());
+}
+}

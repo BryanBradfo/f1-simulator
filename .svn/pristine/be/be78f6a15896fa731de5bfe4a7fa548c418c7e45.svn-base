@@ -1,0 +1,131 @@
+package modele;
+
+
+public class Pilote {
+	
+	/** Son nom */
+	private String nom;
+	/** Son prenom */
+	private String prenom;
+	/** Sa nationalite */
+	private String nationalite;
+	/** Son age*/
+	private int age;
+	/** Son sexe: femme ou homme */
+	private String sexe;
+	/** Sa taille en mètres */
+	private double taille;
+	/** Son poids en Kg */
+	private double poids;
+	/** L'experience du pilote */
+	private Experience exp;
+	
+	
+	/** Construire le pilote à partir de son nom, son prenom, sa nationalite, son age
+	 * son sexe, sa taille et son poids
+	 * @param nom la nom du pilote
+	 * @param prenom le prenom du pilote
+	 * @param nationalite la nationalite 
+	 * @param age son age
+	 * @param sexe femme ou homme
+	 * @param taille
+	 * @param poids
+	 * @param
+	 */
+	public Pilote(String nom, String prenom, String nationalite, int age, String sexe, double taille, double poids, Experience experience) {
+		this.nom = nom;
+		this.prenom = prenom;
+		this.nationalite = nationalite;
+		this.age = age;
+		this.sexe = sexe;
+		this.taille = taille;
+		this.poids = poids;
+		this.exp = experience;
+	}
+	
+	/** Construire un pilote à partir de ses paramètres.
+	 * @param centre le centre du cercle
+	 * @param p le point du cercle$
+	 * @return Pilote le nouveau Pilote
+	 */
+	public static Pilote creerPilote(String nom, String prenom, String nationalite, int age, String sexe, double taille, double poids, Experience experience) {
+		return new Pilote(nom, prenom, nationalite, age, sexe, taille, poids, experience);
+	}
+	
+	public int calculerBoost() {
+		return 0;
+	}
+	
+	/** Faire gagner de l'experience au pilote.
+	 */
+	public void gagnerExperience() {
+		this.exp.augmenterProgression();
+		if (this.exp.progressionToFloat() >= 100.0) {
+			this.exp.augmenterNiveau();
+		}
+	}
+	
+	/** Incrémenter son âge.
+	 */
+	public void vieillir() {
+		this.age ++;
+	}
+
+	/** Obtenir son nom.
+	 * @return nom
+	 */
+	public String getNom() {
+		return this.nom;
+	}
+
+	/** Obtenir son prenom.
+	 * @return prenom
+	 */
+	public String getPrenom() {
+		return this.prenom;
+	}
+
+	/** Obtenir la nationalite du pilote.
+	 * @return nationalite
+	 */
+	public String getNationalite() {
+		return this.nationalite;
+	}
+
+	/** Obtenir l'âge du pilote.
+	 * @return age
+	 */
+	public int getAge() {
+		return this.age;
+	}
+
+	/** Obtenir le sexe du pilote.
+	 * @return sexe
+	 */
+	public String getSexe() {
+		return this.sexe;
+	}
+
+	/** Obtenir la taille du pilote.
+	 * @return taille
+	 */
+	public double getTaille() {
+		return this.taille;
+	}
+
+	/** Obtenir le poids du pilote.
+	 * @return poids
+	 */
+	public double getPoids() {
+		return this.poids;
+	}
+	
+	/** Obtenir l'expérience du pilote.
+	 * @return expérience
+	 */
+	public Experience getExp() {
+		return exp;
+	}
+	
+	
+}

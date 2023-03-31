@@ -1,0 +1,38 @@
+package vue.menu;
+
+public abstract class SousMenu extends Menu implements Commande {
+
+	public SousMenu(String sonTitre) {
+		super(sonTitre);
+	}
+	
+	public abstract void update();
+
+	@Override
+	public void executer() {
+		do {
+			// Afficher le menu
+
+			this.update();
+			this.afficher();
+
+			// Sélectionner une entrée dans le menu
+			this.selectionner();
+
+			// Valider l'entrée sélectionnée
+			this.valider();
+			
+			System.out.println();
+			System.out.println();
+			System.out.println();
+
+		} while (! this.estQuitte());
+		
+	}
+
+	@Override
+	public boolean estExecutable() {
+		return true;
+	}
+	
+}

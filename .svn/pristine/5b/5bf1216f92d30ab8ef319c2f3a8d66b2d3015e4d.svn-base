@@ -1,0 +1,74 @@
+package MVC_interface_graphique.Contrôle;
+
+import java.awt.*;
+import javax.swing.*;
+
+import MVC_interface_graphique.MdJ;
+import MVC_interface_graphique.Modèle.ModeleMenuSave;
+import MVC_interface_graphique.Vue.VueBoutonMenuSave;
+import MVC_interface_graphique.Vue.VueMenuSave;
+import utils.BoutonPerso;
+
+
+/** Cette classe crée un JPanel contenant les différents boutons du Menu de sauvegarde
+ * 
+ * @version 1.3
+ *
+ */
+public class ControleMenuSave extends JPanel {
+	
+	private static final long serialVersionUID = -6595893614835546117L;			// Numéro de Série (utile si besoin de serialiser la classe)
+
+	public ControleMenuSave(ModeleMenuSave modele, VueMenuSave vue) {
+		super(new BorderLayout());
+		VueBoutonMenuSave vueBoutons[] = vue.getBoutonVue();
+		
+		JPanel pSave = new JPanel();
+		JPanel pBas = new JPanel();
+		
+		JButton bRet = new BoutonPerso("Retour au menu");
+		JButton bSup = vue.getBoutonDel();
+		JButton bSave [] = new JButton[MdJ.NB_SAVE];
+		
+		for (int i = 0; i < MdJ.NB_SAVE; i++) {
+			bSave[i] = new JButton();
+			bSave[i].add(vueBoutons[i]);
+			final int indice = i;
+			
+			bSave[i].addActionListener(ev -> {
+				if (modele.isDelMode()) {
+					if (!modele.isEmpty(indice)) {
+						modele.delSauvegarde(indice);
+						modele.changeDelMode();
+						vue.mettreAJour();
+					} 
+				} else if (modele.isEmpty(indice)) {
+					modele.creerSauvegarde(indice);
+				} else {
+					modele.goMenuPrincipal(indice);
+				}
+			});
+		}
+		
+		pSave.setLayout(new GridLayout(3,1));
+		pSave.add(bSave[0]);
+		pSave.add(bSave[1]);
+		pSave.add(bSave[2]);
+		
+		pBas.setLayout(new BorderLayout());
+		pBas.add(bSup, BorderLayout.WEST);
+		pBas.add(bRet, BorderLayout.EAST);
+		
+		this.add(pSave, BorderLayout.CENTER);
+		this.add(pBas, BorderLayout.SOUTH);
+		
+		bRet.addActionListener(ev -> modele.goMenuLancement());
+		bSup.addActionListener(ev -> {
+			modele.changeDelMode();
+			vue.mettreAJour();
+		});
+		
+	}
+	
+
+}

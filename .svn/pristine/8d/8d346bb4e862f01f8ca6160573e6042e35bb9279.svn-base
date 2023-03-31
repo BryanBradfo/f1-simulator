@@ -1,0 +1,141 @@
+package modele;
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
+
+public class ExperienceTest {
+	
+ 	// précision
+ 	public final static double EPSILON = 0.001;
+	
+ 	// ------------------------------
+ 	// ----EXPERIENCE POUR PILOTE----
+ 	// ------------------------------
+ 	
+ 	@Test public void PILOTEtesterExperienceParDefault() {
+		System.out.println("------------------------------------------");
+		System.out.println("PILOTETesterExperienceParDefault");
+		System.out.println("------------------------------------------");
+ 		Pilote Bryan = new Pilote("Chen", "Bryan" ,"Français pur" , 20 , "M" , 1.82 , 71.5, new Experience());
+ 		Bryan.gagnerExperience(20.0);
+ 		Experience copyBryExp = Bryan.getExp().copierExperience();
+		double BryansProgress = copyBryExp.progressionToFloat();
+ 		assertEquals(Bryan.getExp().getNiveau(), 1);
+ 		assertEquals(BryansProgress, 0.0, EPSILON);
+ 		System.out.println(Bryan.getExp().toString());
+ 	}
+ 	
+ 	@Test public void PILOTEtesterExperience() {
+		System.out.println("-----------------------------------------------------------------------");
+		System.out.println("EXPERIENCE POUR PILOTE");
+		System.out.println("-----------------------------------------------------------------------");
+		System.out.println("");
+		System.out.println("------------------------------------------");
+		System.out.println("PILOTETesterExperience");
+		System.out.println("------------------------------------------");
+ 		Pilote Bryan = new Pilote("Chen", "Bryan" ,"Français pur" , 20 , "M" , 1.83 , 71.5, new Experience());
+ 		Bryan.getExp().setBoost(1.0);
+ 		Bryan.gagnerExperience(20.0);
+ 		Experience copyBryExp = Bryan.getExp().copierExperience();
+		double BryansProgress = copyBryExp.progressionToFloat();
+ 		assertEquals(BryansProgress, 20.0, EPSILON);
+ 		System.out.println(Bryan.getExp().toString());
+ 		System.out.println("");
+ 	}
+	
+	@Test public void PILOTEAugmenterNiveau() {
+		System.out.println("------------------------------------------");
+		System.out.println("PILOTEAugmenterNiveau_ProgressionA0");
+		System.out.println("------------------------------------------");
+		Pilote Bryan = new Pilote("Chen", "Bryan" ,"Français pur" , 20 , "M" , 1.83 , 71.5, new Experience());
+		//on arrive à 80% de barre de progression avec un boost de 20%
+		Bryan.getExp().setBoost(1.0);
+		Bryan.gagnerExperience(20.0);
+		Bryan.gagnerExperience(20.0);
+		Bryan.gagnerExperience(20.0);
+		Bryan.gagnerExperience(20.0);
+		Experience copyBryExp = Bryan.getExp().copierExperience();
+		double BryansProgress = copyBryExp.progressionToFloat();
+		assertEquals(BryansProgress, 80.0, EPSILON);
+		System.out.println(Bryan.getExp().toString());
+		
+		//on vérifie qu'à 100%, on augmente de niveau et la barre de progression est remise à 0%
+		Bryan.gagnerExperience(20.0);
+		Experience copyBryExp2 = Bryan.getExp().copierExperience();
+		double BryansProgress2 = copyBryExp2.progressionToFloat();
+		assertEquals(BryansProgress2, 0, EPSILON);
+		System.out.println(Bryan.getExp().toString());
+ 		System.out.println("");
+	}
+	
+	@Test public void PILOTEAugmenterNiveauAvec20Supplementaire() {
+		System.out.println("------------------------------------------");
+		System.out.println("PILOTEAugmenterNiveau_ProgressionNonA0");
+		System.out.println("------------------------------------------");
+		Pilote Bryan = new Pilote("Chen", "Bryan" ,"Français pur" , 20 , "M" , 1.84 , 71.5, new Experience());
+		//on arrive à 80% de barre de progression avec un boost de 20%
+		Bryan.getExp().setBoost(1.0);
+		Bryan.gagnerExperience(30.0);
+		Bryan.gagnerExperience(30.0);
+		Bryan.gagnerExperience(30.0);
+		Experience copyBryExp = Bryan.getExp().copierExperience();
+		double BryansProgress = copyBryExp.progressionToFloat();
+		assertEquals(BryansProgress, 90.0, EPSILON);
+		System.out.println(Bryan.getExp().toString());
+		
+		//on vérifie qu'à 100%, on augmente de niveau et la barre de progression est remise à 0%
+		Bryan.gagnerExperience(30.0);
+		System.out.println(Bryan.getExp().toString());
+		Experience copyBryExp2 = Bryan.getExp().copierExperience();
+		double BryansProgress2 = copyBryExp2.progressionToFloat();
+		assertEquals(BryansProgress2, 20.0, EPSILON);
+ 		System.out.println("");
+
+	}
+	
+ 	// ------------------------------
+ 	// ----EXPERIENCE POUR ECURIE----
+ 	// ------------------------------
+	
+
+ 	@Test public void ECURIEtesterExperienceSimple() {
+		System.out.println("-----------------------------------------------------------------------");
+		System.out.println("EXPERIENCE POUR ECURIE");
+		System.out.println("-----------------------------------------------------------------------");
+		System.out.println("");
+		System.out.println("------------------------------------------");
+		System.out.println("ECURIETesterExperienceParDefault");
+		System.out.println("------------------------------------------");
+ 		Ecurie BC = Ecurie.CreerEcurieSimple();
+ 		BC.gagnerExperience(20.0);
+ 		Experience copyBryExp = BC.getExp().copierExperience();
+		double BryansProgress = copyBryExp.progressionToFloat();
+ 		assertEquals(BC.getExp().getNiveau(), 1);
+ 		assertEquals(BryansProgress, 0.0, EPSILON);
+ 		System.out.println(BC.getExp().toString());
+ 	}
+ 	
+	@Test public void ECURIEAugmenterNiveau() {
+		System.out.println("------------------------------------------");
+		System.out.println("ECURIEAugmenterNiveau_ProgressionA0");
+		System.out.println("------------------------------------------");
+ 		Ecurie BC = Ecurie.CreerEcurieSimple();
+		//on arrive à 80% de barre de progression avec un boost de 20%
+		BC.getExp().setBoost(1.0);
+		BC.gagnerExperience(20.0);
+		BC.gagnerExperience(20.0);
+		BC.gagnerExperience(20.0);
+		BC.gagnerExperience(20.0);
+		Experience copyBryExp = BC.getExp().copierExperience();
+		double BryansProgress = copyBryExp.progressionToFloat();
+		assertEquals(BryansProgress, 80.0, EPSILON);
+		System.out.println(BC.getExp().toString());
+		
+		//on vérifie qu'à 100%, on augmente de niveau et la barre de progression est remise à 0%
+		BC.gagnerExperience(20.0);
+		Experience copyBryExp2 = BC.getExp().copierExperience();
+		double BryansProgress2 = copyBryExp2.progressionToFloat();
+		assertEquals(BryansProgress2, 0, EPSILON);
+		System.out.println(BC.getExp().toString());
+ 		System.out.println("");
+	}
+}

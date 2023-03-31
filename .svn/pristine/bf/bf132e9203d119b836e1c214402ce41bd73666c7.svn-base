@@ -1,0 +1,12 @@
+package modele;
+
+public class Secteurs {
+	
+	/** Numéro du secteur */
+	private int numero;
+	/** Liste des trois secteurs composés de virages */
+	private Virages[] virages;
+	/** Etat du circuit */
+	private String drapeau;
+
+}

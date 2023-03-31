@@ -1,0 +1,34 @@
+package MVC_interface_graphique.Modèle;
+
+import MVC_interface_graphique.Main;
+
+/** Cette classe décrit le comportement global du jeu, comme son titre, sa version, ...
+ * 
+ * @author Timothée Blanchy
+ * @version 1.1
+ *
+ */
+public class ModeleMenuLancement {
+	
+	public final static double VERSION = 2.1;		// Numéro de version du jeu
+	public final static String NOM = "F1 2022";		// Nom du jeu
+	private Main mdj;								// Moteur du jeu
+	
+	public ModeleMenuLancement(Main mdj) {
+		this.mdj = mdj;
+	}
+	
+	/** Lancer le Menu de Sauvagarde
+	 */
+	public void lancerMenuSave() {
+		mdj.menuSauvegarde();
+		
+	}
+	
+	/** Lancer le menu des options !
+	 */
+	public void lancerMenuOptions() {
+		// TODO Quand un menu sauvegarde aura été fait !
+	}
+
+}

@@ -1,0 +1,30 @@
+package vue.sousmenus.commandes;
+
+import modele.Ecurie;
+import vue.menu.Commande;
+
+public class CommandeAmeliorerVoiture implements Commande {
+	
+	private Ecurie ecurie;
+
+	public CommandeAmeliorerVoiture(Ecurie ecurie) {
+		this.ecurie = ecurie;
+	}
+
+	@Override
+	public void executer() {
+		boolean result = ecurie.ameliorerVoiture();
+		if (result) {
+			System.out.println("La voiture est désormais au niveau " + this.ecurie.getVoiture().getIndicesPerformances());
+		} else {
+			System.out.println("Vous n'avez pas suffisement d'argent pour acheter le prochain niveau ! ");
+		}
+
+	}
+
+	@Override
+	public boolean estExecutable() {
+		return true;
+	}
+
+}

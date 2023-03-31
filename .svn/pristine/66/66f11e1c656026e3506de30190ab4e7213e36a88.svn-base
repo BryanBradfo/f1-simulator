@@ -1,0 +1,51 @@
+package MVC_interface_graphique.Vue;
+
+import javax.swing.JLabel;
+
+import MVC_interface_graphique.Modèle.ModeleMenuSave;
+
+public class VueMenuSave {
+
+	private ModeleMenuSave modele;
+	private VueBoutonMenuSave boutons[] = new VueBoutonMenuSave[3];
+	private JLabel bDelMode;
+	
+	public VueMenuSave(ModeleMenuSave modele) {
+		this.modele = modele;
+		
+		for (int i = 0; i<=2; i++) {
+			this.boutons[i] = new VueBoutonMenuSave(modele, i);
+		}
+		this.bDelMode = new JLabel();
+		this.bDelMode.setHorizontalAlignment(JLabel.CENTER);
+		
+		this.mettreAJour();
+	}
+	
+	/**
+	 * @return the boutons
+	 */
+	public VueBoutonMenuSave[] getBoutonVue() {
+		return boutons;
+	}
+
+	/**
+	 * @return the bDelMode
+	 */
+	public JLabel getBoutonDelMode() {
+		return bDelMode;
+	}
+
+
+	public void mettreAJour() {
+		for (int i = 0; i<=2; i++) {
+			this.boutons[i].mettreAJour();
+		}
+		if (this.modele.isDelMode()) {
+			this.bDelMode.setText("Annuler");
+		} else {
+			this.bDelMode.setText("Supprimer une sauvegarde");
+		}
+	}
+
+}

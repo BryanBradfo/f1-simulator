@@ -1,0 +1,21 @@
+import vue.menuLancer.MenuLancer;
+
+public class Main {
+
+	public Main() {
+		
+	}
+
+	public static void main(String[] args) {
+		System.out.println("Lancement du jeu !");
+		
+		// Initialisation de certaines classes (expliquer pourquoi)
+		// TODO
+		
+		MenuLancer jeu = new MenuLancer();
+		jeu.editer();
+		
+
+	}
+
+}

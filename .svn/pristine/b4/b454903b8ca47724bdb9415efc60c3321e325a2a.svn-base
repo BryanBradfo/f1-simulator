@@ -1,0 +1,32 @@
+package modele;
+import java.text.DecimalFormat;
+
+public class ViragesTest {
+	public static void main (String args[]) {
+		Virages [] virages = new Virages[4];
+		virages[0] = new ViragesLents(1,51,90);
+		virages[1] = new ViragesMoyens(2,50,160);
+		virages[2] = new ViragesRapides(3,70,220);
+		virages[3] = new ViragesLents(4,90,125);
+		LigneDroites [] lignes = new LigneDroites[5];
+		lignes[0] = new LigneDroites(733,290,true);
+		lignes[1] = new LigneDroites(50,135,false);
+		lignes[2] = new LigneDroites(60,215,false);
+		lignes[3] = new LigneDroites(540,275,true);
+		lignes[4] = new LigneDroites(200,210,false);
+		double tempsSecteur = virages[0].tempsPassage() + virages[1].tempsPassage() + virages[2].tempsPassage() + 
+							  virages[3].tempsPassage() + lignes[0].tempsPassage()+ lignes[1].tempsPassage()+ 
+							  lignes[2].tempsPassage()+ lignes[3].tempsPassage()+ lignes[4].tempsPassage();
+		DecimalFormat df = new DecimalFormat("#.###");
+		System.out.println("Temps ligne droite 1 ==> " + df.format(lignes[0].tempsPassage()) + " secondes");
+		System.out.println("Temps passage virage 1 ==> " + df.format(virages[0].tempsPassage()) + " secondes");
+		System.out.println("Temps ligne droite 2 ==> " + df.format(lignes[1].tempsPassage()) + " secondes");
+		System.out.println("Temps passage virage 2 ==> " + df.format(virages[1].tempsPassage()) + " secondes");
+		System.out.println("Temps ligne droite 3 ==> " + df.format(lignes[2].tempsPassage()) + " secondes");
+		System.out.println("Temps passage virage 3 ==> " + df.format(virages[2].tempsPassage())+" secondes");
+		System.out.println("Temps ligne droite 4 ==> " + df.format(lignes[3].tempsPassage()) + " secondes");
+		System.out.println("Temps passage virage 4 ==> " + df.format(virages[3].tempsPassage())+" secondes");
+		System.out.println("Temps ligne droite 5 ==> " + df.format(lignes[4].tempsPassage()) + " secondes");
+		System.out.println("Temps total du Secteur 1 ==> "+ df.format(tempsSecteur)+" secondes");
+	}
+}

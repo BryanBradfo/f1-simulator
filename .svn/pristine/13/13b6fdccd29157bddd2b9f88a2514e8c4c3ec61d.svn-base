@@ -1,0 +1,206 @@
+package MVC_interface_graphique;
+
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import MVC_interface_graphique.Contrôle.*;
+import MVC_interface_graphique.Modèle.*;
+import MVC_interface_graphique.Vue.*;
+import exceptions.NumSaveInconnuException;
+import modele.Classement;
+import modele.Ecurie;
+import utils.Sauvegarde;
+
+/** Moteur du jeu. Cette classe  lance les différents menus. 
+ * 
+ * @version 1.9
+ */
+public class MdJ extends JFrame {
+	
+	private static final long serialVersionUID = -6713895943226846059L;			// Numéro de Série (utile si besoin de serialiser la classe)
+
+	/** Nombres de sauvegardes disponibles */
+	public final static int NB_SAVE = 3;
+	
+	private int numSave = -1;													// Numéro de la sauvegarde en cours
+	private Ecurie[][] ecuries = new Ecurie[NB_SAVE][Ecurie.NB_ECURIES];		// Les 3x10 ecuries du jeu : la première de chaque est l'écurie du joueur
+	
+	
+	public MdJ() {
+		ecuries = Sauvegarde.RecupSauvegarde();
+		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		this.setTitle("F1 simulator 2022");
+		this.setSize(1000,600); 					//On donne une taille à notre fenêtre
+		this.setLocationRelativeTo(null); 		//On centre la fenêtre sur l'écran
+		this.setResizable(false); 				//On interdit la redimensionnement de la fenêtre
+
+		// Change l'apparence de la fenêtre et des objets par défaults.
+	    try {
+	    	UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e1) {
+			e1.printStackTrace();
+			System.exit(ERROR);
+		}
+	    
+	    // Définit l'icone du jeu.
+		ImageIcon icon = new ImageIcon("img/logo.png");
+		this.setIconImage(icon.getImage());
+		
+		// Permet de définir ce qui est réalisé lorsque le joueur ferme la fenêtre.
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				Sauvegarde.Sauvegarder(ecuries);
+				System.exit(0);       
+		}	});
+	}
+	
+	/** Gère le menu de lancement */
+	public void menuLancement() {
+		ModeleMenuLancement modele = new ModeleMenuLancement(this);
+		VueMenuLancement vue = new VueMenuLancement(modele);
+		ControleMenuLancement controleur = new ControleMenuLancement(modele, vue);
+		this.getContentPane().removeAll();
+		this.getContentPane().setLayout(new BorderLayout());
+		this.getContentPane().add(vue, BorderLayout.CENTER);
+		this.getContentPane().add(controleur, BorderLayout.SOUTH);
+		this.setVisible(true);
+	}
+	
+	/** Gère le menu sauvegarde */
+	public void menuSauvegarde() {
+		ModeleMenuSave modele = new ModeleMenuSave(this);
+		VueMenuSave vue = new VueMenuSave(modele);
+		ControleMenuSave controle = new ControleMenuSave(modele, vue);
+		this.getContentPane().removeAll();
+		this.getContentPane().add(controle);
+		this.pack();
+	}
+	
+	/** Gère le menu du choix des écuries */
+	public void menuChoixecurie() {
+		ModeleMenuChoixEcurie modele = new ModeleMenuChoixEcurie(this);
+		ControleMenuChoixEcurie controle = new ControleMenuChoixEcurie(modele);
+		this.getContentPane().removeAll();
+		this.getContentPane().add(controle);
+		this.pack();
+	}
+	
+	/** Gère le Menu Principal */
+	public void menuPrincipal() {
+		if (this.numSave == -1) {
+			throw new NumSaveInconnuException();
+		}
+		
+		ModeleMenuPrincipal modele = new ModeleMenuPrincipal(this);
+		VueMenuPrincipal vue = new VueMenuPrincipal(modele);
+		ControleMenuPrincipal controle = new ControleMenuPrincipal(modele);
+		
+		this.getContentPane().removeAll();
+		this.getContentPane().setLayout(new BorderLayout());
+		this.getContentPane().add(vue, BorderLayout.NORTH);
+		this.getContentPane().add(controle, BorderLayout.SOUTH);
+		this.pack();
+	}
+	
+	/** Gère le menu de gestion de la voiture */
+	public void menuVoiture() {
+		
+		if (this.numSave == -1) {
+			throw new NumSaveInconnuException();
+		}
+		
+		ModeleMenuVoiture modele = new ModeleMenuVoiture(this);
+		VueMenuVoiture vue = new VueMenuVoiture(modele);
+		ControleMenuVoiture controle = new ControleMenuVoiture(modele, vue);
+		
+		this.getContentPane().removeAll();
+		this.getContentPane().setLayout(new BorderLayout());
+		this.getContentPane().add(vue, BorderLayout.CENTER);
+		this.getContentPane().add(controle, BorderLayout.SOUTH);
+		this.pack();
+	}
+	
+	/** Gère le menu de gestion des pilotes */
+	public void menuPilotes() {
+		
+		if (this.numSave == -1) {
+			throw new NumSaveInconnuException();
+		}
+		
+		ModeleMenuPilotes modele = new ModeleMenuPilotes(this);
+		VueMenuPilotes vue = new VueMenuPilotes(modele);
+		ControleMenuPilotes controle = new ControleMenuPilotes(modele, vue);
+		
+		this.getContentPane().removeAll();
+		this.getContentPane().setLayout(new BorderLayout());
+		this.getContentPane().add(vue, BorderLayout.CENTER);
+		this.getContentPane().add(controle, BorderLayout.SOUTH);
+		this.pack();
+	}
+	
+	/** Gère le menu des résultat de la course
+	 * @param c le classement de la course
+	 */
+	public void menuResultat(Classement c) {
+		if (this.numSave == -1) {
+			throw new NumSaveInconnuException();
+		}
+		ModeleMenuResultatsCourse modele = new ModeleMenuResultatsCourse(this, c);
+		VueMenuResultatsCourse vue = new VueMenuResultatsCourse(modele);
+		ControleMenuResultatsCourse controle = new ControleMenuResultatsCourse(modele, vue);
+		
+		this.getContentPane().removeAll();
+		this.getContentPane().setLayout(new BorderLayout());
+		this.getContentPane().add(vue, BorderLayout.CENTER);
+		this.getContentPane().add(controle, BorderLayout.SOUTH);
+		this.pack();
+	}
+	
+	
+	/** @return Les 3x10 ecuries du jeu : la première de chaque est l'écurie du joueur
+	 */
+	public Ecurie[][] getEcuries() {
+		return this.ecuries;
+	}
+	
+	/** @return  L'écurie de la sauvegarde en cours du joueur
+	 */
+	public Ecurie getMonEcurie() {
+		if (this.numSave == -1) {
+			throw new NumSaveInconnuException();
+		}
+		return this.ecuries[this.numSave][0];
+	}
+	
+	/** @return  Les écuries de la sauvegarde en cours
+	 */
+	public Ecurie[] getMesEcuries() {
+		if (this.numSave == -1) {
+			throw new NumSaveInconnuException();
+		}
+		return this.ecuries[this.numSave];
+	}
+	
+	/** Définit le numéro de la sauvegarde en cours.
+	 * @param num
+	 */
+	public void setNumSave(int num) {
+		this.numSave = num;
+	}
+	
+	/** @return le numéro de la sauvegarde en cours.
+	 */
+	public int getNumSave() {
+		return this.numSave;
+	}
+	
+	/** Sauvegarder les écuries du jeu. */
+	public void save() {
+		Sauvegarde.Sauvegarder(this.ecuries);
+	}
+	
+}

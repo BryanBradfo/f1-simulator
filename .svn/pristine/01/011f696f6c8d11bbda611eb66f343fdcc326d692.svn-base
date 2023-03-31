@@ -1,0 +1,14 @@
+package modele;
+
+public class Stands {
+
+	private int nombrePlaces;
+	private float longueur;
+	private int vitesseMax;
+	private int tempsArretMoyen;
+	
+	public int effectuerArret() {
+		return 0;
+	}
+	
+}

@@ -1,0 +1,67 @@
+package MVC_interface_graphique.Modèle;
+
+import MVC_interface_graphique.Main;
+import modele.Ecurie;
+
+/** Classe définissant le modèle du menu principal
+ * @author Timothée Blanchy
+ * @version 1.0
+ */
+public class ModeleMenuPrincipal {
+
+	private Ecurie ecurie; 		// Ecurie du joueur
+	private Main mdj;						// Moteur de jeu
+	
+	/** Constructeur du modèle
+	 * @param ecurie l'écurie du joueur
+	 */
+	public ModeleMenuPrincipal(Ecurie ecurie, Main mdj) {
+		this.mdj = mdj;
+		this.ecurie = ecurie;
+	}
+	
+	/** Retourner le nom de l'écurie
+	 * @return le nom de l'écurie
+	 */
+	public String getEcurieNom() {
+		return this.ecurie.getNom();
+	}
+	
+	/** Retourner le budget de l'écurie
+	 * @return le budget de l'écurie
+	 */
+	public int getBudjetEcurie() {
+		return this.ecurie.getBudget();
+	}
+	
+	/** Retourner le niveau de l'écurie
+	 * @return le niveau de l'écurie
+	 */
+	public int getNiveauEcurie() {
+		return this.ecurie.getExperience().getNiveau();
+	}
+	
+	/** Lancer le menu de gestion de la voiture
+	 */
+	public void goMenuVoiture() {
+		// TODO Menu voitures
+	}
+	
+	/** Lancer le menu de gestion des pilotes
+	 */
+	public void goMenuPilotes() {
+		// TODO Menu pilotes
+	}
+	
+	/** Lancer le menu des courses
+	 */
+	public void goMenuCourse() {
+		// TODO Menu Courses
+	}
+	
+	public void retourMenuLancement() {
+		// TODO Sauvegarder
+		this.mdj.menuLancement();
+	}
+
+}

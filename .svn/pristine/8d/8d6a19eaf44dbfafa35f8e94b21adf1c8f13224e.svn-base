@@ -1,0 +1,12 @@
+package modele;
+
+public abstract class Virages {
+	
+	private int numero;
+	private String nom;
+	private float longueur;
+	private float distanceSuivant;
+	
+	abstract float vitessePassage(Voiture voiture);
+
+}

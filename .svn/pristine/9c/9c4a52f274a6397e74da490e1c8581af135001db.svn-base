@@ -1,0 +1,34 @@
+package modele;
+
+public class Pilote {
+	private String nom;
+	private String prenom;
+	private String nationalite;
+	private int age;
+	private String sexe;
+	private double taille;
+	private double poids;
+	//private Experience exp;
+	
+	public Pilote(String nom, String prenom, String nationalite, int age, String sexe, double taille, double poids) {
+		this.nom = nom;
+		this.prenom = prenom;
+		this.nationalite = nationalite;
+		this.age = age;
+		this.sexe = sexe;
+		this.taille = taille;
+		this.poids = poids;
+	}
+	
+	public int calculerBoost() {
+		return 0;
+	}
+	
+	public void gagnerExperience() {
+		
+	}
+	
+	public void vieillir() {
+		this.age ++;
+	}
+}

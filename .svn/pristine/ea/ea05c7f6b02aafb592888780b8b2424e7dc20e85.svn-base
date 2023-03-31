@@ -1,0 +1,143 @@
+package MVC_interface_graphique.Modèle;
+
+import MVC_interface_graphique.Main;
+import exceptions.NumBoutonInconnuException;
+import exceptions.SauvegardeVideException;
+import modele.Ecurie;
+
+
+/** Cette classe est un modèle pour le Menu de sauvegarde, c'est avec cette classe que les différents éléments visuels interagiront.
+ * 
+ * @author Timothée Blanchy
+ * @version 1.1
+ *
+ */
+public class ModeleMenuSave {
+	
+	private boolean estVide[] = {true, true, true}; 	// Définit si une sauvegarde est vide ou non. Par défaut, elles sont vides.
+	private Ecurie ecurie[] = new Ecurie[3];			// Ensemble des écuries définies pour chacunes des auvegardes. 
+	private Main mdj;									// Moteur de jeu
+	private boolean estDelMode = false;					// Définit si on est dans le mode de suppression
+	
+	public ModeleMenuSave(Main mdj) {
+		this.mdj = mdj;
+	}
+	
+	/** Savoir si une sauvegarde est vide ou non.
+	 * 
+	 * @param numBouton Le numéro du Bouton (entre 0 et 2)
+	 * @return si elle est vide.
+	 */
+	public boolean isEmpty(int numBouton) {
+		assert (0 <= numBouton && numBouton <= 2);
+		return estVide[numBouton];
+	}
+	
+	/** Savoir si on est en mode de suppresion.
+	 * @return
+	 */
+	public boolean isDelMode() {
+		return estDelMode;
+	}
+	
+	/** Active/désactive le mode de supression
+	 * 
+	 */
+	public void changeDelMode () {
+		if (this.estDelMode) {
+			this.estDelMode = false;
+		} else {
+			this.estDelMode = true;
+		}
+	}
+	
+	/** Récupérer le nom de l'écurie associée à un bouton.
+	 * 
+	 * @param numBouton Le numéro du bouton (entre 0 et 2)
+	 * @return le nom de l'écurie
+	 * @throws SauvegardeVideException s'il n'y a pas de sauvegarde associée au bouton
+	 */
+	public String getNomEcurie(int numBouton) throws SauvegardeVideException {
+		if ((numBouton < 0) || (numBouton > 2)) {
+			throw new NumBoutonInconnuException();
+		}
+		if (!isEmpty(numBouton)) {
+			return this.ecurie[numBouton].getNom();
+		}
+		throw new SauvegardeVideException();
+	}
+	
+	/** Récupérer le budget de l'écurie associée à un bouton.
+	 * 
+	 * @param NumBouton Le numéro du bouton (entre 0 et 2)
+	 * @return le budget de l'écurie
+	 * @throws SauvegardeVideException s'il n'y a pas de sauvegarde associée au bouton
+	 */
+	public int getBudget(int numBouton) throws SauvegardeVideException {
+		if ((numBouton < 0) || (numBouton > 2)) {
+			throw new NumBoutonInconnuException();
+		}
+		if (!isEmpty(numBouton)) {
+			return this.ecurie[numBouton].getBudget();
+		}
+		throw new SauvegardeVideException();
+	}
+	
+	/** Récupérer le niveau de l'écurie associée à un bouton.
+	 * 
+	 * @param numBouton Le numéro du bouton (entre 0 et 2)
+	 * @return le niveau de l'écurie
+	 * @throws SauvegardeVideException s'il n'y a pas de sauvegarde associée au bouton
+	 */
+	public int getNiveau(int numBouton) throws SauvegardeVideException {
+		if ((numBouton < 0) || (numBouton > 2)) {
+			throw new NumBoutonInconnuException();
+		}
+		if (!isEmpty(numBouton)) {
+			return this.ecurie[numBouton].getExp().getNiveau();
+		}
+		throw new SauvegardeVideException();
+	}
+	
+	/** Créer une sauvegarde à l'emplacement d'un bouton.
+	 * @param numBouton le numéro du bouton  (entre 0 et 2)
+	 */
+	public void creerSauvegarde(int numBouton) {
+		if ((numBouton < 0) || (numBouton > 2)) {
+			throw new NumBoutonInconnuException();
+		}
+		this.estVide[numBouton] = false;
+		this.ecurie[numBouton] = Ecurie.CreerEcurieSimple();
+	}
+	
+	/** Supprimer la sauvegarde associée à un bouton
+	 * @param numBouton le numéro du bouton  (entre 0 et 2)
+	 */
+	public void delSauvegarde(int numBouton) {
+		if ((numBouton < 0) || (numBouton > 2)) {
+			throw new NumBoutonInconnuException();
+		}
+		this.estVide[numBouton] = true;
+		this.ecurie[numBouton] = null;
+	}
+	
+	/** Retourner au menu principal
+	 */
+	public void goMenuLancement() {
+		this.mdj.menuLancement();
+	}
+	
+	/** Aller au Menu Principal
+	 */
+	public void goMenuPrincipal() {
+		this.mdj.menuPrincipal();
+	}
+	
+	/** Fonction de debug permettant d'afficher l'état du modèle
+	 */
+	private void afficherEtat() {
+		System.out.println();
+		System.out.println("Etat : ");
+		System.out.println("On est en del mode :" +  this.estDelMode + ". Les sauvegardes sont dies : " + this.isEmpty(0) + ", " + this.isEmpty(1) + " et " + this.isEmpty(2));
+	}
+}

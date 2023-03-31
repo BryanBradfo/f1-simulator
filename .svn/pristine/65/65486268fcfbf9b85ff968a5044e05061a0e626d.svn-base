@@ -1,0 +1,96 @@
+package modele;
+
+public class Moteur extends ElementVoiture {
+
+	/** Puissance du moteur. */
+	private double puissance;
+	private double puissancemax;
+	
+	
+	public Moteur() {
+		this.puissance = 50;
+		this.puissancemax = 50;
+		this.dureeDeVie = 100;
+	}
+	
+	
+	public double getPuissance() {
+		return this.puissance;
+	}
+	
+	public double getPuissanceMax() {
+		return this.puissancemax;
+	}
+	
+	public double getDureeDeVie() {
+		return this.dureeDeVie;
+	}
+	
+	/** Diminue la puissance du moteur
+	 * 
+	 * @param valeur perte d'endurance
+	 */
+	public void pertePuissance(double pourcentage) {
+		if (pourcentage >= 0 && this.puissance > 0) {
+			this.puissance -= pourcentage;
+			if (this.puissance < 0) {
+				this.puissance = 0;
+			}
+		}
+	}
+	
+	/** Perte de vie du moteur. 
+	 *  La durée de vie varie entre 0 et 1
+	 * */
+	@Override
+	public void perteDeVie() {
+		// Plus on s'améliore, plus on perd de la vie lentement
+		if (this.puissance == 100 || (30 - 3*this.puissance/10) <= 0) {
+			this.dureeDeVie -= 1;
+		} else {
+			this.dureeDeVie -= (30 - 3*this.puissance/10 );
+		}
+		if (this.dureeDeVie < 0) {
+			this.dureeDeVie = 0;
+		}
+	}
+
+	public void reparer() {
+		this.puissance = this.puissancemax;
+		this.dureeDeVie = 100;
+	}
+	
+	public void ameliorer() {
+		if (this.puissancemax < 100) {
+			this.puissance += 10;
+			this.puissancemax += 10;
+		}
+	}
+	
+	@Override
+	public String toString() {
+		return "Moteur de puissance " + puissance + "/" + puissancemax + ", de duree de vie " + dureeDeVie
+				+ "/100]";
+	}
+
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Moteur other = (Moteur) obj;
+		if (Double.doubleToLongBits(puissance) != Double.doubleToLongBits(other.puissance))
+			return false;
+		if (Double.doubleToLongBits(puissancemax) != Double.doubleToLongBits(other.puissancemax))
+			return false;
+		if (Double.doubleToLongBits(dureeDeVie) != Double.doubleToLongBits(other.dureeDeVie))
+			return false;
+		return true;
+	}
+}

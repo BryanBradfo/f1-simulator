@@ -1,0 +1,108 @@
+package modele;
+
+public class Roue extends ElementVoiture {
+	
+	/** Nom de la marque de la roue. */
+	private String nom;
+	
+	/** Adhérence de la roue. */
+	private double adherence;
+	private double adherencemax;
+	
+	
+	public Roue(String nom) {
+		this.nom = nom;
+		this.adherence = 50; // On commence avec une adhérence à 50 %
+		this.adherencemax = 50;
+		this.dureeDeVie = 100;
+	}
+	
+	public String getNom() {
+		return this.nom;
+	}
+	
+	public double getAdherence() {
+		return this.adherence;
+	}
+	
+	public double getAdherenceMax() {
+		return this.adherencemax;
+	}
+	
+	public double getDureeDeVie() {
+		return this.dureeDeVie;
+	}
+	
+	/** Diminue l'endurance de la roue
+	 * 
+	 * @param valeur perte d'endurance
+	 */
+	public void perteAdherence(double pourcentage) {
+		if (pourcentage >= 0 && this.adherence > 0) {
+			this.adherence -= pourcentage;
+			if (this.adherence < 0) {
+				this.adherence = 0;
+			}
+		}
+	}
+	
+	/** Perte de vie de la roue. 
+	 *  La durée de vie varie entre 0 et 1
+	 * */
+	@Override
+	public void perteDeVie() {
+		// Plus on s'améliore, plus on perd de la vie lentement
+		if ((this.adherence) == 100 || (30 - 3*this.adherence/10 <= 0)) {
+			this.dureeDeVie -= 1;
+		} else {
+			this.dureeDeVie -= (30 - 3*this.adherence/10 );
+		}
+		if (this.dureeDeVie < 0) {
+			this.dureeDeVie = 0;
+		}
+	}
+
+	public void reparer() {
+		this.adherence = this.adherencemax;
+		this.dureeDeVie = 100;
+	}
+	
+	public void ameliorer() {
+		if (this.adherencemax < 100) {
+			this.adherence += 10;
+			this.adherencemax += 10;
+		}
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Roue other = (Roue) obj;
+		if (Double.doubleToLongBits(adherence) != Double.doubleToLongBits(other.adherence))
+			return false;
+		if (Double.doubleToLongBits(adherencemax) != Double.doubleToLongBits(other.adherencemax))
+			return false;
+		if (Double.doubleToLongBits(dureeDeVie) != Double.doubleToLongBits(other.dureeDeVie))
+			return false;
+		if (nom == null) {
+			if (other.nom != null)
+				return false;
+		} else if (!nom.equals(other.nom))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Roue : " + nom + ", d'adherence " + adherence + "/" + adherencemax + ", duree de vie de "
+				+ dureeDeVie + "/100]";
+	}
+	
+	
+}

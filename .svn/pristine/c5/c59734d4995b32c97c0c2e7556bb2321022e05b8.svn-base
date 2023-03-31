@@ -1,0 +1,102 @@
+
+
+/** Un circuit est localisé dans un pays et à un nom.
+* Il a un nombre de tours établis, une longueur et donc une distance de course totale.
+* Il y a aussi un nombre de virages, plus ou moins rapides.
+* Des records sont déjà établis pour le circuit et servent de référence.
+*
+* @author  Hautesserres Simon
+* @version 1.0
+*/
+
+public class Circuit {
+	
+	private final int MAX_NB_SECTEURS = 3;
+	
+	/** Nom du circuit */
+	private String nom;
+	/** Pays où se situe le circuit */
+	private String pays;
+	/** Nombre de Tours du circuit pendant une course */
+	private int nbTours;
+	/** Longueur du circuit en Kilomètres */
+	private double longueur; // Longueur du circuit (donc 1 seul tour) en km
+	/** Distance en kilomètres de la Course */
+	private double distanceCourse; // Distance totale de la course : nbTours * longueur en km
+	/** Nombre de virages total du circuit */
+	private int nbVirages;
+	/** Liste des trois secteurs composés de virages */
+	private Secteurs [] secteurs;
+	/** Nombre de zones DRS sur un tour */
+	private int zonesDRS;
+	/** Zones des stands associés au circuit */
+	private Stands stand;
+	/** Pilote associé au meilleur tour réalisé en course */
+	private Pilote meilleurPilote; // A CHANGER AVEC CLASSE PILOTE
+	/** Temps en minutes, secondes, millisecondes du record du tour effectué en course */
+	private String recordTour;
+	/** Etat du circuit */
+	private EtatCircuit etat;
+	
+	/** Construire le circuit à partir de son nom, son pays, son nombre de tours, sa longueur
+	 * le nombre de virages et la liste de ceux ci, le meilleur tour avec le pilote et l'etat du circuit
+	 * @param nom la nom du circuit
+	 * @param pays le nom pays où est le circuit
+	 * @param longueur la longueur du circuit
+	 * @param nbVirages le nombre de virages
+	 * @param zonesDRS le nombre de zones DRS
+	 * @param stand le stands associé au circuit
+	 * @param pilote le pilote associé au meilleur tour
+	 * @param recordTour le record du tour
+	 * @param etat l'etat du circuit 
+	 */
+	public Circuit (String nom, String pays, int nbTours, double longueur, int nbVirages, 
+					int zonesDRS, Stands stand, Pilote pilote, String recordTour, EtatCircuit etat ) {
+		this.nom = nom;
+		this.pays = pays;
+		this.nbTours = nbTours;
+		this.longueur = longueur;
+		this.distanceCourse = longueur*nbTours;
+		this.nbVirages = nbVirages;
+		this.secteurs = new Secteurs[MAX_NB_SECTEURS];
+		this.zonesDRS = zonesDRS;
+		this.stand = Stands.creerStands(stand.getNombrePlaces(), stand.getLongueur(),
+				stand.getVitesseMoyenne(), stand.getTempsArretMoyen());
+		this.meilleurPilote = Pilote.creerPilote(pilote.getNom(), pilote.getPrenom(), pilote.getNationalite(),
+				pilote.getAge(), pilote.getSexe(), pilote.getTaille(), pilote.getPoids());
+		this.recordTour = recordTour;
+		this.etat = etat;
+		
+	}
+	
+	/** Calcul du temps du circuit en prenant en compte des performances de la voiture, du Pilote,
+	 * de l'état du circuit (drapeau jaune, météo, adhérence du bitume) et d'une part d'aléatoire
+	 * @param voiture la voiture et ses performances ont une grande influence sur le temps pouvant être réalise en course
+	 * @param etat etat du icrcuit qui influence le temps sur un tour
+	 */
+	public int calculerTempsCircuit(Voiture voiture, EtatCircuit etat) {
+		return 0;
+	}
+	
+	/** Retourner le secteur dans lequel se situe la voiture
+	 * 
+	 */
+
+
+	/** Retourne l'affichage des attributs de la classe Circuit
+	 * @return string des attributs
+	 */
+	@Override
+	public String toString() {
+		return "== Grand Prix de "+ this.pays + " ==\nCircuit " + nom + "\nNombre Tours : " + nbTours + "\nLongueur : " + longueur
+				+ "\nDistance Course : " + this.distanceCourse + "\nNombre Virages :" + nbVirages + "\nZones DRS : " + zonesDRS
+				+ "\nMeilleur Tour : " + this.recordTour + " realisé par " + this.meilleurPilote.getPrenom() + 
+				this.meilleurPilote.getPrenom()+"\n" + etat;
+	}
+	
+	
+	
+	
+	
+
+}

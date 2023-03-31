@@ -1,0 +1,43 @@
+package modele;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.*;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+class MoteurDeCourseTest {
+	
+	
+	private MoteurDeCourse m;
+
+	@BeforeEach
+	void setUp(){
+		Ecurie [] e = new Ecurie[3];
+		Pilote [] p = new Pilote[6];
+		String [] s1 = new String[1];
+		s1[0] = "Petronas";
+		String [] s2 = new String[1];
+		s2[0] = "Vodafone";
+		String [] s3 = new String[1];
+		s3[0] = "E-Tech";
+		p[0] = Pilote.creerPilotebasique();
+		p[1] = Pilote.creerPilotebasique2();
+		p[2] = new Pilote("Charles", "Leclerc", "Monégasque", 16, 25, "M", 1.80, 70, new Experience());
+		p[3] = new Pilote("Carlos", "Sainz Jr", "Espagnol", 4, 27, "M", 1.78, 70, new Experience());
+		p[4] = new Pilote("Fernando", "Alonso", "Espagnol", 4, 27, "M", 1.78, 70, new Experience());
+		p[5] = new Pilote("Estaban", "Ocon", "Espagnol", 4, 27, "M", 1.78, 70, new Experience());
+		e[0] = new Ecurie("Mercedes", "CHAMPION", s1, 20000, 1, p[0], p[1], new Voiture("Mercedes", 750, 100, false));
+		e[1] = new Ecurie("Ferrari", "Rouge", s1, 10000, 2, p[2], p[3], new Voiture("Ferrari", 750, 50, false));
+		e[2] = new Ecurie("Alpine", "NUL", s1, 5000, 1, p[4], p[5], new Voiture("Alpine", 750, 10, false));
+		m = new MoteurDeCourse(Circuit.creerCircuitBahrein(), e);
+	}
+
+	@Test
+	void testLancerCourse() {
+		m.lancerCourse();
+		System.out.println(m.afficher());
+	}
+
+}

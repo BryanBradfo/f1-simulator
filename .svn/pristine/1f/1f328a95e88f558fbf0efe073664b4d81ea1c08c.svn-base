@@ -1,0 +1,23 @@
+package MVC_interface_graphique.Modèle;
+
+public class ModeleMenuLancement {
+	
+	private double version;
+	
+	public ModeleMenuLancement() {
+		version = 1.1;
+	}
+	
+	public String getNomJeu() {
+		return "F1 Simulator 2022";
+	}
+	
+	public double getVersion() {
+		return this.version;
+	}
+	
+	public void augVersion() {
+		this.version++;
+	}
+
+}

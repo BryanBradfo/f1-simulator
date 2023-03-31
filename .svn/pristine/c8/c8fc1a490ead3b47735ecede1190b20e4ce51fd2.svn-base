@@ -1,0 +1,55 @@
+package MVC_interface_graphique.Contrôle;
+
+import java.awt.BorderLayout;
+import javax.swing.*;
+
+import MVC_interface_graphique.Modèle.ModeleMenuChoixEcurie;
+import utils.BoutonPerso;
+
+/** Cette classe gère les contrôles du menu de choix des écuries. 
+ * 
+ * @version 1.1
+ */
+public class ControleMenuChoixEcurie extends JPanel {
+	
+	private static final long serialVersionUID = 1274144366169065393L; 		// Numéro de Série (utile si besoin de serialiser la classe)
+	private ModeleMenuChoixEcurie modele;			// Modèle du menu
+	private JButton [] jNoms = new JButton[10];		// Tableau des boutons des écuries
+	
+	public ControleMenuChoixEcurie(ModeleMenuChoixEcurie modele) {
+		this.modele = modele;
+		
+		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		
+		this.setLayout(new BorderLayout());
+		JPanel pNoms = new JPanel();
+		pNoms.setLayout(new BoxLayout(pNoms, BoxLayout.Y_AXIS));
+		JPanel pBas = new JPanel();
+		JLabel lDesc = new JLabel("Choisissez l'écurie que vous allez jouer");
+		
+		for (int i = 0; i < 10; i++) {
+			this.jNoms[i] = new JButton(this.modele.getNomsEcuries()[i]);
+			this.jNoms[i].setHorizontalAlignment(JLabel.CENTER);
+			this.jNoms[i].setFont(this.jNoms[i].getFont().deriveFont(40f));
+			pNoms.add(this.jNoms[i]);
+			final int indice = i;
+			this.jNoms[i].addActionListener(ev -> {
+				this.modele.choisirEcurie(indice);
+			});
+		}
+		
+		JButton bRet = new BoutonPerso("Retour");
+		JButton bCreer = new BoutonPerso("Creer votre ecurie");
+		
+		pBas.add(bRet);
+		pBas.add(bCreer);
+		
+		bRet.addActionListener(ev -> this.modele.goMenuSave());
+		bCreer.addActionListener(ev -> this.modele.creerEcurie());
+		
+		this.add(lDesc, BorderLayout.NORTH);
+		this.add(pBas, BorderLayout.SOUTH);
+		this.add(pNoms, BorderLayout.CENTER);
+	}
+
+}

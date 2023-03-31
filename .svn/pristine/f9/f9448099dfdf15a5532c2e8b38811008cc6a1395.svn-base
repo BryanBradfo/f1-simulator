@@ -1,0 +1,45 @@
+package modele;
+
+public class Secteurs {
+	
+	/** Numéro du secteur */
+	private int numero;
+	/** Liste des trois secteurs composés de virages */
+	private ElementCircuit[] elements;
+	/** Etat du circuit */
+	private String drapeau;
+	
+	
+	public Secteurs(int numero, ElementCircuit[] elements, String drapeau) {
+		this.numero = numero;
+		this.elements = elements;
+		this.drapeau = drapeau;
+	}
+
+	public int getNumero() {
+		return numero;
+	}
+	
+	public ElementCircuit[] getElements() {
+		return elements;
+	}
+	
+	public String getDrapeau() {
+		return drapeau;
+	}
+	public void setDrapeau(String drapeau) {
+		this.drapeau = drapeau;
+	}
+	
+	public double tempsPassage() {
+		double temps = 0;
+		for(int i = 0; i < this.elements.length; i++) {
+			temps += elements[i].tempsPassage();
+		}
+		return temps;
+		
+	}
+	
+	
+
+}

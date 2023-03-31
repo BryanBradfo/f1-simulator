@@ -1,0 +1,49 @@
+package modele;
+
+import java.io.Serializable;
+
+public class Roue extends ElementVoiture implements Serializable {
+	
+	/** Nom de la marque de la roue. */
+	private String nom;
+	
+	/** Adhérence de la roue. */
+	private double adherence;
+	private double adherencemax;
+	
+	
+	public Roue(String nom) {
+		this.nom = nom;
+		this.adherence = 1.0;
+		this.adherencemax = 1.0;
+	}
+	
+	public double getAdherence() {
+		return this.adherence;
+	}
+	
+	public double getAdherenceMax() {
+		return this.adherencemax;
+	}
+	
+	
+	/** Perte d'efficacité de la roue. */
+	@Override
+	public void perteDeVie() {
+		this.adherence -= 0.3;
+		if (this.adherence < 0) {
+			this.adherence = 0;
+		}
+	}
+
+	public void reparer() {
+		this.adherence = adherencemax;
+	}
+	
+	public void ameliorer() {
+		this.adherence += 1.0;
+		this.adherencemax += 1.0;
+	}
+	
+	
+}

@@ -1,0 +1,45 @@
+package vue.menuPrincipal;
+
+import vue.menu.*;
+
+/** Menu principal
+ * @author Timothée Blanchy
+ */
+public class MenuPrincipal extends Menu implements Commande {
+
+
+	public MenuPrincipal(String infos) {
+		super(infos);
+	}
+
+	public void update(String infos) {
+		this.setTitre(infos);
+	}
+
+
+	@Override
+	public void executer() {
+		do {
+			// Afficher le menu
+			this.afficher();
+
+			// Sélectionner une entrée dans le menu
+			this.selectionner();
+
+			// Valider l'entrée sélectionnée
+			this.valider();
+			
+			System.out.println();
+			System.out.println();
+			System.out.println();
+			
+		} while (! this.estQuitte());
+		
+	}
+
+	@Override
+	public boolean estExecutable() {
+		return true;
+	}
+	
+}

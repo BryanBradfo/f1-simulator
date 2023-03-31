@@ -1,0 +1,52 @@
+package modele;
+
+
+
+public class DirecteurEcurie //extends Ecurie
+{
+
+	private String nom;
+	private String prenom;
+	private String nationalite;
+	private Ecurie ecurie;
+	
+	public DirecteurEcurie(//Ecurie ecurie,
+			String nom, String prenom, String nationalite) {
+		//super(ecurie);
+		this.nom = nom;
+		this.prenom = prenom;
+		this.nationalite = nationalite;
+	}
+	
+	// Getters
+	
+	public String getNom() {
+		return this.nom;
+	}
+	
+	public String getPrenom() {
+		return this.prenom;
+	}
+
+	public String getNationalite() {
+		return this.nationalite;
+	}
+
+	public Ecurie getEcurie() {
+		return this.ecurie;
+	}
+
+	// Setters
+	
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+	
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+	
+	public void setNationalite(String nationalite) {
+		this.nationalite = nationalite;
+	}
+}

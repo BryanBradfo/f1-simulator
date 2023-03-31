@@ -1,0 +1,36 @@
+package vue.sousmenus.commandes;
+
+import modele.Circuit;
+import modele.Pilote;
+import vue.menu.Commande;
+
+
+public class CommandeLancerCourse implements Commande {
+
+	Circuit circuit;
+	Pilote pilote = Pilote.creerPilotebasique();
+
+	public CommandeLancerCourse(Circuit circuit) {
+		this.circuit = circuit;
+	}
+
+
+	@Override
+	public void executer() {
+		Circuit circuit = Circuit.creerCircuitBahrein();
+		System.out.println("== TEMPS EFFECTUE == ");
+		convertTime(circuit.lancerTourCircuit(pilote));
+	}
+
+	@Override
+	public boolean estExecutable() {
+		return true;
+	}
+	
+	public void convertTime(double time) {
+		System.out.print((int)time/60 + ":");
+		System.out.print((int)time%60 + ":");
+		System.out.print((int)(time%60%1*1000));
+	}
+	
+} 

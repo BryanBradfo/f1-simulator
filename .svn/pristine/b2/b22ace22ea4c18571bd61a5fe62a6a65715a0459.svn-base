@@ -1,0 +1,74 @@
+package modele;
+
+public class Voiture {
+	
+	/** Marque de la voiture. */
+	private String marque;
+
+	/** Poids de la voiture. */
+	private float poids;
+
+	/** Indice de performance de la voiture. */
+	private int indicesPerformances;
+
+	/** Indicateur afin de savoir si la voiture est toujours sur la course ou non. */
+	private boolean estEnCourse;
+
+	/** Pilote de la voiture. */
+	private Pilote pilote;
+	
+	/** Construire la voiture à partir de sa marque, son poids, sa performance
+	 * sous forme d'indice et un indicateur pour savoir s'il est en course ou non.
+	 * @param saMarque la marque de la voiture
+	 * @param sonPoids le poids de la voiture
+	 * @param sonIndicePerformance l'indice de performance de la voiture
+	 * @param EnCourse Indicateur pour savoir si la voiture est sur la course ou pas 
+	 */
+	public Voiture(String saMarque, float sonPoids, int sonIndicePerformance, boolean EnCourse, Pilote sonPilote ) {
+		this.marque = saMarque;
+		this.poids = sonPoids;
+		this.indicesPerformances = sonIndicePerformance;
+		this.estEnCourse = EnCourse;
+		this.pilote = sonPilote;
+	}
+	
+	public static Voiture creerVoitureBasique() {
+		return new Voiture("Mercedes", 752, 1, false, Pilote.creerPilotebasique());  // en attente du constructeur pilote basique
+	}
+
+	/** Obtenir la marque de la voiture.
+	 */
+	public String getMarque() {
+		return marque;
+	}
+
+	/** Obtenir le poids de la voiture.
+	 */
+	public float getPoids() {
+		return poids;
+	}
+
+	/** Obtenir l'indice de performance de la voiture.
+	 */
+	public int getIndicesPerformances() {
+		return indicesPerformances;
+	}
+
+	/** Savoir si la voiture est sur la course ou pas.
+	 */
+	public boolean isEstEnCourse() {
+		return estEnCourse;
+	}
+	
+	/** Obtenir le pilote de la voiture.
+	 */
+	public Pilote getPilote() {
+		return pilote;
+	}
+	
+	/** Afficher la voiture et ses caractéristiques
+	 */
+	@Override public String toString() {
+		return "Voiture(" + this.marque + "," + this.poids + "," + this.indicesPerformances + "," + this.estEnCourse + "," + this.pilote + ")";
+	}
+}

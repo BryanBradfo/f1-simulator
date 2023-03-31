@@ -1,0 +1,48 @@
+package MVC_interface_graphique.Vue;
+
+import java.awt.BorderLayout;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import MVC_interface_graphique.Modèle.ModeleMenuPilotes;
+
+
+/** Cette classe définit la vue du menu de gestion des pilotes
+ * 
+ * @version 1.1
+ */
+public class VueMenuPilotes extends JPanel {
+	
+	private static final long serialVersionUID = -6237750584255982391L;			// Numéro de Série (utile si besoin de serialiser la classe)
+	private ModeleMenuPilotes modele;		// Modèle du menu de gestion des pilotes
+	private JLabel pil1;					// Infos du pilote 1
+	private JLabel pil2;					// Infos du pilote 2
+	
+	public VueMenuPilotes(ModeleMenuPilotes modele) {
+		this.modele = modele;
+	
+		this.setLayout(new BorderLayout());
+		pil1 = new JLabel();
+		pil1.setHorizontalAlignment(JLabel.CENTER);
+		pil1.setFont(pil1.getFont().deriveFont(18f));
+		pil2 = new JLabel();
+		pil2.setHorizontalAlignment(JLabel.CENTER);
+		pil2.setFont(pil2.getFont().deriveFont(18f));
+		
+		this.add(pil1, BorderLayout.NORTH);
+		this.add(pil2, BorderLayout.SOUTH);
+		
+		this.MettreAJour();
+	}
+	
+	/** Met à jour l'affichage des pilotes*/
+	public void MettreAJour() {
+		pil1.setText(modele.getInfosPilote1());
+		pil2.setText(modele.getInfosPilote2());
+	}
+	
+	
+	
+	
+}

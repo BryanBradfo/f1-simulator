@@ -1,0 +1,357 @@
+package MVC_interface_graphique;
+
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import MVC_interface_graphique.Contrôle.*;
+import MVC_interface_graphique.Modèle.*;
+import MVC_interface_graphique.Vue.*;
+import exceptions.NumSaveInconnuException;
+import modele.Circuit;
+import modele.Classement;
+import modele.Ecurie;
+import utils.JpanelImg;
+import utils.Sauvegarde;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import javax.sound.sampled.*;
+
+/** Moteur du jeu. Cette classe  lance les différents menus. 
+ * 
+ * @version 1.9
+ */
+public class MdJ extends JFrame {
+	
+	private static Clip clip;
+	private static AudioInputStream audioIn;
+	private static final long serialVersionUID = -6713895943226846059L;			// Numéro de Série (utile si besoin de serialiser la classe)
+
+	/** Nombres de sauvegardes disponibles */
+	public final static int NB_SAVE = 3;
+	
+	private int numSave = -1;													// Numéro de la sauvegarde en cours
+	private Ecurie[][] ecuries = new Ecurie[NB_SAVE][Ecurie.NB_ECURIES];		// Les 3x10 ecuries du jeu : la première de chaque est l'écurie du joueur
+	
+    private byte[] samples;
+    
+	public MdJ() {
+		ecuries = Sauvegarde.RecupSauvegarde();
+		try {
+			audioIn = AudioSystem.getAudioInputStream(new File("./sons/maintheme.wav"));
+		    AudioFormat format = audioIn.getFormat();
+		    DataLine.Info info = new DataLine.Info(Clip.class, format);
+		    clip = (Clip) AudioSystem.getLine(info);
+		    clip.open(audioIn);
+		    clip.start();
+		}
+		catch (UnsupportedAudioFileException e){
+			e.printStackTrace();
+		}
+		catch (IOException e){
+			e.printStackTrace();
+		}
+		catch (LineUnavailableException e) {
+			e.printStackTrace();
+		}
+		
+		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		this.setTitle("F1 simulator 2022");
+		this.setSize(1000,600); 					//On donne une taille à notre fenêtre
+		this.setLocationRelativeTo(null); 			//On centre la fenêtre sur l'écran
+		this.setResizable(false); 					//On interdit la redimensionnement de la fenêtre
+
+		// Change l'apparence de la fenêtre et des objets par défaults.
+	    try {
+	    	UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e1) {
+			e1.printStackTrace();
+			System.exit(ERROR);
+		}
+	    
+	    // Définit l'icone du jeu.
+		ImageIcon icon = new ImageIcon("img/logo.png");
+		if (icon.getIconHeight() == -1) {
+			System.out.println("Vous ne lancez pas le jeu depuis le bon répertoire (src) ");
+			System.exit(ERROR);
+		}
+		this.setIconImage(icon.getImage());
+		
+		// Permet de définir ce qui est réalisé lorsque le joueur ferme la fenêtre.
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				Sauvegarde.Sauvegarder(ecuries);
+				System.exit(0);       
+		}	});
+	}
+	
+	/** Gère le menu de lancement */
+	public void menuLancement() {
+
+		ModeleMenuLancement modele = new ModeleMenuLancement(this);
+		VueMenuLancement vue = new VueMenuLancement(modele);
+		ControleMenuLancement controleur = new ControleMenuLancement(modele, vue);
+		vue.addControle(controleur);
+		//this.setContentPane(new JLabel(new ImageIcon("img/image_mercedes_encourse.png")));
+
+		this.getContentPane().removeAll();
+		this.getContentPane().add(vue);
+		this.setVisible(true);
+		this.setSize(1000,600);
+	}
+	
+	/** Gère le menu sauvegarde */
+	public void menuSauvegarde() {
+		ModeleMenuSave modele = new ModeleMenuSave(this);
+		VueMenuSave vue = new VueMenuSave(modele);
+		ControleMenuSave controle = new ControleMenuSave(modele, vue);
+		this.getContentPane().removeAll();
+		this.getContentPane().add(controle);
+		this.pack();
+		this.setSize(1000,600);
+	}
+	
+	/** Gère le menu du choix des écuries */
+	public void menuChoixecurie() {
+		ModeleMenuChoixEcurie modele = new ModeleMenuChoixEcurie(this);
+		ControleMenuChoixEcurie controle = new ControleMenuChoixEcurie(modele);
+		this.getContentPane().removeAll();
+		this.getContentPane().add(controle);
+		this.pack();
+		this.setSize(1000,600);
+	}
+	
+	/** Gère le Menu Principal */
+	public void menuPrincipal() {
+		if (this.numSave == -1) {
+			throw new NumSaveInconnuException();
+		}
+
+		
+	    //JTextArea text = new JTextArea()
+	    //{
+	        /**
+			 * 
+			 */
+		//	private static final long serialVersionUID = 1L;
+			
+		//	Image img = monIcone.getImage();
+	    //	{setOpaque(false);}
+	    //	public void paintComponent(Graphics graphics)
+	    //	{
+	    //		graphics.drawImage(img, 0, 0, this);
+	    //		super.paintComponent(graphics);
+	    //	}
+	    //};
+	    
+	    //JScrollPane pane = new JScrollPane(text);
+	    //this.getContentPane().add(pane, BorderLayout.CENTER);
+	    //pane.setVisible(true);
+	    
+        // ajout de l'image au milieu
+        	
+		
+        
+		ModeleMenuPrincipal modele = new ModeleMenuPrincipal(this);
+		VueMenuPrincipal vue = new VueMenuPrincipal(modele);
+		ControleMenuPrincipal controle = new ControleMenuPrincipal(modele);
+		
+		
+		// tentative d'ajout d'une image en background 
+        final ImageIcon pilote1 = getPilote1(this.ecuries[numSave][0].getPilote1().getNom());
+        final ImageIcon pilote2 = getPilote2(this.ecuries[numSave][0].getPilote2().getNom());
+		JLabel imagePilote1 = new JLabel(pilote1,  JLabel.CENTER);          
+		JLabel imagePilote2 = new JLabel(pilote2,   JLabel.CENTER);   
+		
+		this.setContentPane(new JLabel(new ImageIcon("img/image_de_jeu2_agrandi.png")));
+		this.getContentPane().removeAll();
+		this.getContentPane().setLayout(new BorderLayout());
+		this.getContentPane().add(vue, BorderLayout.NORTH);
+		this.getContentPane().add(controle, BorderLayout.SOUTH);
+		this.getContentPane().add(imagePilote1, BorderLayout.WEST);
+		this.getContentPane().add(imagePilote2, BorderLayout.EAST);
+
+		this.pack();
+		this.setSize(1000,600);
+		this.setVisible(true);
+	}
+	
+	/** Gère le menu de gestion de la voiture */
+	public void menuVoiture() {
+		
+		if (this.numSave == -1) {
+			throw new NumSaveInconnuException();
+		}
+		
+		ModeleMenuVoiture modele = new ModeleMenuVoiture(this);
+		VueMenuVoiture vue = new VueMenuVoiture(modele);
+		ControleMenuVoiture controle = new ControleMenuVoiture(modele, vue);
+		this.getContentPane().removeAll();
+		this.getContentPane().add(vue);
+	//	this.getContentPane().add(controle, BorderLayout.SOUTH);
+		this.pack();
+		this.setSize(1000,600);
+	}
+	
+	/** Gère le menu de gestion des pilotes */
+	public void menuPilotes() {
+		
+		if (this.numSave == -1) {
+			throw new NumSaveInconnuException();
+		}
+		
+		ModeleMenuPilotes modele = new ModeleMenuPilotes(this);
+		VueMenuPilotes vue = new VueMenuPilotes(modele);
+		ControleMenuPilotes controle = new ControleMenuPilotes(modele, vue);
+		
+		this.getContentPane().removeAll();
+		this.getContentPane().setLayout(new BorderLayout());
+		this.getContentPane().add(vue, BorderLayout.CENTER);
+		this.getContentPane().add(controle, BorderLayout.SOUTH);
+		this.pack();
+		this.setSize(1000,600);
+	}
+	
+	/** Gère le menu des résultat de la course
+	 * @param c le classement de la course
+	 */
+	public void menuCourse(Classement c, Circuit circuit) {
+		if (this.numSave == -1) {
+			throw new NumSaveInconnuException();
+		}
+		
+		ModeleMenuCourse modele = new ModeleMenuCourse(this, this.ecuries[this.numSave] ,c, circuit );
+		VueMenuCourse vue = new VueMenuCourse(modele);
+		ControleMenuCourse controle = new ControleMenuCourse(modele, vue);
+		
+		this.getContentPane().removeAll();
+		this.getContentPane().setLayout(new BorderLayout());
+		this.getContentPane().add(vue, BorderLayout.CENTER);
+		this.getContentPane().add(controle, BorderLayout.SOUTH);
+		this.pack();
+		this.setSize(1000,600);
+	}
+	
+	
+	/** Gère le menu des résultat de la course
+	 * @param c le classement de la course
+	 */
+	public void menuResultat(Classement c) {
+		if (this.numSave == -1) {
+			throw new NumSaveInconnuException();
+		}
+		ModeleMenuResultatsCourse modele = new ModeleMenuResultatsCourse(this, c);
+		VueMenuResultatsCourse vue = new VueMenuResultatsCourse(modele);
+		ControleMenuResultatsCourse controle = new ControleMenuResultatsCourse(modele, vue);
+		
+		this.getContentPane().removeAll();
+		this.getContentPane().setLayout(new BorderLayout());
+		this.getContentPane().add(vue, BorderLayout.CENTER);
+		this.getContentPane().add(controle, BorderLayout.SOUTH);
+		this.pack();
+		this.setSize(1000,600);
+	}
+	
+	
+	/** @return Les 3x10 ecuries du jeu : la première de chaque est l'écurie du joueur
+	 */
+	public Ecurie[][] getEcuries() {
+		return this.ecuries;
+	}
+	
+	/** @return  L'écurie de la sauvegarde en cours du joueur
+	 */
+	public Ecurie getMonEcurie() {
+		if (this.numSave == -1) {
+			throw new NumSaveInconnuException();
+		}
+		return this.ecuries[this.numSave][0];
+	}
+	
+	/** @return  Les écuries de la sauvegarde en cours
+	 */
+	public Ecurie[] getMesEcuries() {
+		if (this.numSave == -1) {
+			throw new NumSaveInconnuException();
+		}
+		return this.ecuries[this.numSave];
+	}
+	
+	/** Définit le numéro de la sauvegarde en cours.
+	 * @param num
+	 */
+	public void setNumSave(int num) {
+		this.numSave = num;
+	}
+	
+	/** @return le numéro de la sauvegarde en cours.
+	 */
+	public int getNumSave() {
+		return this.numSave;
+	}
+	
+	/** Sauvegarder les écuries du jeu. */
+	public void save() {
+		Sauvegarde.Sauvegarder(this.ecuries);
+	}
+	
+	public ImageIcon getPilote1(String nom) {
+		switch (nom) {
+		case "Leclerc" :
+			return new ImageIcon("img/logo_charlesleclerc.png");
+		case "Alonso" :
+			return new ImageIcon("img/logo_fernandoalonso.png");
+		case "Hamilton" :
+			return new ImageIcon("img/logo_lewishamilton.png");
+		case "Norris" :
+			return new ImageIcon("img/logo_landonorris.png");
+		case "Verstappen" :
+			return new ImageIcon("img/logo_maxverstappen.png");
+		case "Bottas" :
+			return new ImageIcon("img/logo_valtteribottas.png");
+		case "Gasly" :
+			return new ImageIcon("img/logo_pierregasly.png");
+		case "Vettel" :
+			return new ImageIcon("img/logo_sebastianvettel.png");
+		case "Albon" :
+			return new ImageIcon("img/logo_alexandrealbon.png");
+		case "Magnussen" :
+			return new ImageIcon("img/logo_kevinmagnussen.png");
+		default:
+			return new ImageIcon("img/logo_Ferrari-removebg-preview.png");
+		}
+	}
+	
+	public ImageIcon getPilote2(String nom) {
+		switch (nom) {
+		case "Sainz Jr" :
+			return new ImageIcon("img/logo_carlossainz.png");
+		case "Ocon" :
+			return new ImageIcon("img/logo_ocon.png");
+		case "Russell" :
+			return new ImageIcon("img/logo_georgerusell.png");
+		case "Ricciardo" :
+			return new ImageIcon("img/logo_danielricciardo.png");
+		case "Perez" :
+			return new ImageIcon("img/logo_sergioperez.png");
+		case "Zhou" :
+			return new ImageIcon("img/logo_guanyuzhou.png");
+		case "Tsunoda" :
+			return new ImageIcon("img/logo_tsunoda.png");
+		case "Stroll" :
+			return new ImageIcon("img/logo_lancestroll.png");
+		case "Latifi" :
+			return new ImageIcon("img/logo_nicholaslatifi.png");
+		case "Schumi" :
+			return new ImageIcon("img/logo_michaelschumacher.png");
+		default:
+			return new ImageIcon("img/logo_Ferrari-removebg-preview.png");
+		}
+	}
+	
+}

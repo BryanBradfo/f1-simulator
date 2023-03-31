@@ -1,0 +1,44 @@
+package MVC_interface_graphique.Modèle;
+import MVC_interface_graphique.Main;
+import modele.Classement;
+
+/** Cette classe décrit le comportement du menu d'affichage des résultats d'une course
+ * 
+ * @author Yu-Chi Lee
+ * @version 1.0
+ *
+ */
+
+public class ModeleMenuResultatsCourse {
+	
+	private Main mdj;
+	private Classement classement;
+	
+	public ModeleMenuResultatsCourse(Main mdj, Classement classement) {
+		this.mdj = mdj;
+		this.classement = classement;
+	}
+	
+	public String[] getPremier() {
+		return this.classement.getPremier();
+	}
+
+	public String[] getSecond() {
+		return this.classement.getSecond();
+	}
+	
+	public String[] getThird() {
+		return this.classement.getThird();
+	}
+	
+	public String[] getReste() {
+		// TODO à modifier
+		return this.classement.getRest()[0];
+	}
+	
+	/** Revenir au Menu principal
+	 */
+	public void goMenuPrincipal() {
+		mdj.menuPrincipal();
+	}
+}

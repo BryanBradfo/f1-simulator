@@ -1,0 +1,15 @@
+package modele;
+
+import java.io.Serializable;
+
+public class Moteur extends ElementVoiture implements Serializable {
+
+	/** Efficacité du moteur */
+	private int efficacite;
+
+	/** Perte d'efficacité du moteur. */
+	@Override
+	public void perteDeVie() {
+		this.efficacite -= 0;
+	}
+}

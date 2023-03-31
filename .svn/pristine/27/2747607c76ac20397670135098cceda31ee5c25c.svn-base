@@ -1,0 +1,17 @@
+package modele;
+
+public class ViragesLents extends Virages {
+	
+
+	public ViragesLents(int numero, double longueur, double distanceSuivant, double vitesseMoyenne) {
+		super(numero, longueur, distanceSuivant, vitesseMoyenne);
+		
+	}
+
+	@Override
+	public double tempsPassage() {
+		
+		return this.longueur/(100/3.6) + distanceSuivant/(vitesseMoyenne/3.6);
+	}
+
+}

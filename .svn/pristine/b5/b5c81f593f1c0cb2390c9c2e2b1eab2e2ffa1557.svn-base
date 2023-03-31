@@ -1,0 +1,45 @@
+package vue.moteurDeJeu;
+
+import modele.*;
+import vue.menu.*;
+import vue.menuPrincipal.*;
+import vue.menuPrincipal.commandes.*;
+
+public class MoteurDeJeu {
+
+	private Menu menuLancer;  // Le menu de démarrage
+
+	public MoteurDeJeu() {
+		// Création des classes importantes 
+		Ecurie monEcurie = Ecurie.CreerEcurieSimple();
+
+
+		// Création du menu de démarrage 
+		menuLancer = new Menu("Menu de lancement");
+		String desc1 = "MENU PRINCIPAL\nBienvenue à toi, jeune directeur d'écurie ! Voici le menu d'où tu pourras controler celle-ci !\n";
+		String desc2 = "Tu peux lancer une course, ou t'occuper de tes voitures et ou pilotes\nQuelques infos sur l'écurie : \n";
+		MenuPrincipal menuPrincipal = new MenuPrincipal(desc1 + desc2 + monEcurie);
+		menuLancer.ajouter("Jouer", menuPrincipal);
+		menuPrincipal.ajouter("Lancer la course", new CommandeLancerCourse(null));
+
+		
+		
+	}
+
+	public void lancer() {
+		do {
+			// Afficher le menu
+			menuLancer.afficher();
+
+			// Sélectionner une entrée dans le menu
+			menuLancer.selectionner();
+
+			// Valider l'entrée sélectionnée
+			menuLancer.valider();
+			
+			System.out.println();
+			System.out.println();
+
+		} while (! menuLancer.estQuitte());
+	}
+}

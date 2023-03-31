@@ -1,0 +1,84 @@
+package modele;
+
+public class Experience {
+
+	/** Précision. */
+	public final static double EPSILON = 0.001;
+	
+	/** niveauMax atteignable pour l'objet (Pilote / Ecurie). */
+	public static final double niveauMax = 10;
+
+	/** Niveau de l'objet (Pilote / Ecurie) compris entre 1 et niveauMax. */
+	private int niveau;
+
+	/** Progression de l'objet (Pilote / Ecurie) comprise entre 0 et 100. */
+	private double progression;
+
+	/** Boost de l'objet (Pilote / Ecurie) compris entre 0 et 100. */
+	private double boost;
+	
+	/** Créer la barre d'expérience par défaut.
+	 */
+	public Experience() {
+		this.niveau = 1;
+		this.progression = 0.0;
+		this.boost = 0.0;
+	}
+		
+	/** Créer la barre d'expérience associée à un objet (Pilote / Ecurie).
+	 * @param monNiveau le niveau de l'objet
+	 * @param maProgression la progression de l'objet
+	 * @param monBoost le boost de l'objet
+	 */
+	public Experience(int monNiveau, double maProgression, double monBoost) {
+		this.niveau = monNiveau;
+		this.progression = maProgression;
+		this.boost = monBoost;
+	}
+
+	public void augmenterNiveau () {
+		this.niveau += 1;
+	}
+	
+	public void augmenterProgression () {
+		this.progression = this.progression + this.boost;
+	}
+	
+	/** Obtenir le niveau de l'objet.
+	 * @return niveau de l'objet
+	 */
+	public int getNiveau() {
+		return niveau;
+	}
+	
+	/** Obtenir la progression de l'objet.
+	 * @return progression de l'objet
+	 */
+	public double getProgression() {
+		return progression;
+	}
+	
+	
+	/** Obtenir le boost de l'objet.
+	 * @return boost de l'objet
+	 */
+	public double getBoost() {
+		return boost;
+	}
+
+	/** Changer le boost en fonction de l'objet.
+ 	* @param boost en fonction des résultats d'une course pour Pilote / de la renommée pour Ecurie
+ 	*/
+	public void setBoost(double boost) {
+		this.boost = boost;
+	}
+	
+	public double progressionToFloat() {
+		return this.progression;
+	}
+	
+	@Override
+	public String toString() {
+		return "Votre niveau : " + this.niveau + ".\n" + "Votre barre de progression : " + this.progression + ".\n";
+	}
+}

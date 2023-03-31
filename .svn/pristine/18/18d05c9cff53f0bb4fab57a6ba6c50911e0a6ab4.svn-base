@@ -1,0 +1,13 @@
+package modele;
+
+public class ViragesMoyens extends Virages {
+
+	public ViragesMoyens(int numero, double longueur, double distanceSuivant, double vitesseMoyenne) {
+		super(numero, longueur, distanceSuivant, vitesseMoyenne);
+	}
+
+	public double tempsPassage() {
+		return this.longueur/(150/3.6) + distanceSuivant/(vitesseMoyenne/3.6);
+	}
+
+}

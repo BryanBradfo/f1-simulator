@@ -1,0 +1,34 @@
+package MVC_interface_graphique.Modèle;
+
+public class ModeleMenuSave {
+	
+	private boolean estVide[] = {true, true, true};
+	
+	public ModeleMenuSave() {
+	}
+	
+	public boolean isEmpty(int numBouton) {
+		return estVide[numBouton];
+	}
+	
+	public String getNomEcurie() {
+		return "Roger";
+	}
+	
+	public int getBudget() {
+		return 1000;
+	}
+	
+	public int getNiveau() {
+		return 1;
+	}
+	
+	public void creerSauvegarde(int numBouton) {
+		this.estVide[numBouton] = false;
+	}
+	
+	public void delSauvegarde(int numBouton) {
+		this.estVide[numBouton] = true;
+	}
+
+}

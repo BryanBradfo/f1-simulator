@@ -1,0 +1,9 @@
+
+public interface Menu {
+	
+	/** Lancer un menu. Il apparait à l'utilisateur et lui permet de choisir un action.
+	 * 
+	 */
+	public void launch();
+	
+}

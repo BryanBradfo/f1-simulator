@@ -1,0 +1,129 @@
+package modele;
+
+public class Voiture {
+	
+	/** Marque de la voiture. */
+	private String marque;
+
+	/** Poids de la voiture. */
+	private float poids;
+
+	/** Indice de performance de la voiture. */
+	private int indicesPerformances;
+
+	/** Indicateur afin de savoir si la voiture est toujours sur la course ou non. */
+	private boolean estEnCourse;
+	
+	
+	
+	
+	
+	/** Construire la voiture à partir de sa marque, son poids, sa performance
+	 * sous forme d'indice et un indicateur pour savoir s'il est en course ou non.
+	 * @param saMarque la marque de la voiture
+	 * @param sonPoids le poids de la voiture
+	 * @param sonIndicePerformance l'indice de performance de la voiture
+	 * @param EnCourse Indicateur pour savoir si la voiture est sur la course ou pas 
+	 */
+	public Voiture(String saMarque, float sonPoids, int sonIndicePerformance, boolean EnCourse) {
+		this.marque = saMarque;
+		this.poids = sonPoids;
+		this.indicesPerformances = sonIndicePerformance;
+		this.estEnCourse = EnCourse;
+	}
+	
+	public static Voiture creerVoitureBasique() {
+		return new Voiture("Mercedes", 752, 1, false);
+	}
+
+	
+	
+	
+	/** Obtenir la marque de la voiture.
+	 */
+	public String getMarque() {
+		return marque;
+	}
+
+	/** Obtenir le poids de la voiture.
+	 */
+	public float getPoids() {
+		return poids;
+	}
+
+	/** Obtenir l'indice de performance de la voiture.
+	 */
+	public int getIndicesPerformances() {
+		return indicesPerformances;
+	}
+
+	/** Savoir si la voiture est sur la course ou pas.
+	 */
+	public boolean isEstEnCourse() {
+		return estEnCourse;
+	}
+	
+	
+	
+	
+	/** Améliorer les performances de la voiture
+	 */
+	public void ameliorerPerformances() {
+		this.indicesPerformances ++;
+	}
+	
+	/** Réparer la voiture
+	 */
+	public void reparerVoiture() {
+		// Ne fait rien  pour le moment 
+	}
+	
+	
+	
+	
+	/** Copier la voiture
+	 */
+	public Voiture copierVoiture() {
+		return new Voiture(this.getMarque(), this.getPoids(), this.getIndicesPerformances(), this.isEstEnCourse());
+	}
+	
+	/** Afficher la voiture et ses caractéristiques
+	 */
+	@Override public String toString() {
+		return "Voiture {\n\tmarque : " + this.marque + ", \n\tpoids : " + this.poids + " kg, \n\tperformances : " + this.indicesPerformances + "\n}";
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (estEnCourse ? 1231 : 1237);
+		result = prime * result + indicesPerformances;
+		result = prime * result + ((marque == null) ? 0 : marque.hashCode());
+		result = prime * result + Float.floatToIntBits(poids);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Voiture other = (Voiture) obj;
+		if (estEnCourse != other.estEnCourse)
+			return false;
+		if (indicesPerformances != other.indicesPerformances)
+			return false;
+		if (marque == null) {
+			if (other.marque != null)
+				return false;
+		} else if (!marque.equals(other.marque))
+			return false;
+		if (Float.floatToIntBits(poids) != Float.floatToIntBits(other.poids))
+			return false;
+		return true;
+	}
+}

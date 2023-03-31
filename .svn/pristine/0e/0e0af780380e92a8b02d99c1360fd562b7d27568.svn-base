@@ -1,0 +1,189 @@
+package modele;
+
+
+public class Pilote {
+	
+	/** Son nom */
+	private String nom;
+	/** Son prenom */
+	private String prenom;
+	/** Sa nationalite */
+	private String nationalite;
+	/** Son age*/
+	private int age;
+	/** Son sexe: femme ou homme */
+	private String sexe;
+	/** Sa taille en mètres */
+	private double taille;
+	/** Son poids en Kg */
+	private double poids;
+	/** L'experience du pilote */
+	private Experience exp;
+	
+	
+	/** Construire le pilote à partir de son nom, son prenom, sa nationalite, son age
+	 * son sexe, sa taille et son poids
+	 * @param nom la nom du pilote
+	 * @param prenom le prenom du pilote
+	 * @param nationalite la nationalite 
+	 * @param age son age
+	 * @param sexe femme ou homme
+	 * @param taille
+	 * @param poids
+	 * @param
+	 */
+	public Pilote(String nom, String prenom, String nationalite, int age, String sexe, double taille, double poids, Experience experience) {
+		this.nom = nom;
+		this.prenom = prenom;
+		this.nationalite = nationalite;
+		this.age = age;
+		this.sexe = sexe;
+		this.taille = taille;
+		this.poids = poids;
+		this.exp = experience;
+	}
+	
+	/** Construire un pilote à partir de ses paramètres.
+	 * @param centre le centre du cercle
+	 * @param p le point du cercle$
+	 * @return Pilote le nouveau Pilote
+	 */
+	public static Pilote creerPilote(String nom, String prenom, String nationalite, int age, String sexe, double taille, double poids, Experience experience) {
+		return new Pilote(nom, prenom, nationalite, age, sexe, taille, poids, experience);
+	}
+	
+	/** Construire un pilote basique.
+	 * @return Pilote le nouveau Pilote
+	 */
+	public static Pilote creerPilotebasique() {
+		return new Pilote("Chen", "Bryan", "Chinois", 20, "homme", 1.80, 71.5, new Experience());
+	}
+	
+	/** Construire un pilote basique.
+	 * @return Pilote le nouveau Pilote
+	 */
+	public static Pilote creerPilotebasique2() {
+		return new Pilote("Lee", "Yu-Chi", "Française", 21, "femme", 1.60, 52.5, new Experience());
+	}
+	
+	public int calculerBoost() {
+		return 0;
+	}
+	
+	/** Faire gagner de l'experience au pilote.
+	 */
+	public void gagnerExperience(double exp) {
+		this.exp.augmenterProgression(exp);
+	}
+	
+	/** Incrémenter son âge.
+	 */
+	public void vieillir() {
+		this.age ++;
+	}
+
+	/** Obtenir son nom.
+	 * @return nom
+	 */
+	public String getNom() {
+		return this.nom;
+	}
+
+	/** Obtenir son prenom.
+	 * @return prenom
+	 */
+	public String getPrenom() {
+		return this.prenom;
+	}
+
+	/** Obtenir la nationalite du pilote.
+	 * @return nationalite
+	 */
+	public String getNationalite() {
+		return this.nationalite;
+	}
+
+	/** Obtenir l'âge du pilote.
+	 * @return age
+	 */
+	public int getAge() {
+		return this.age;
+	}
+
+	/** Obtenir le sexe du pilote.
+	 * @return sexe
+	 */
+	public String getSexe() {
+		return this.sexe;
+	}
+
+	/** Obtenir la taille du pilote.
+	 * @return taille
+	 */
+	public double getTaille() {
+		return this.taille;
+	}
+
+	/** Obtenir le poids du pilote.
+	 * @return poids
+	 */
+	public double getPoids() {
+		return this.poids;
+	}
+	
+	/** Obtenir l'expérience du pilote.
+	 * @return expérience
+	 */
+	public Experience getExp() {
+		return exp;
+	}
+	
+	public String toString() {
+		return "Le pilote " + this.nom + " " + this.prenom + ", âgé de " + this.age 
+				+ ", de nationalité " + this.nationalite	+ ", pèse " + this.poids + " et mesure " + this.taille;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Pilote other = (Pilote) obj;
+		if (age != other.age)
+			return false;
+		if (exp == null) {
+			if (other.exp != null)
+				return false;
+		} else if (!exp.equals(other.exp))
+			return false;
+		if (nationalite == null) {
+			if (other.nationalite != null)
+				return false;
+		} else if (!nationalite.equals(other.nationalite))
+			return false;
+		if (nom == null) {
+			if (other.nom != null)
+				return false;
+		} else if (!nom.equals(other.nom))
+			return false;
+		if (Double.doubleToLongBits(poids) != Double.doubleToLongBits(other.poids))
+			return false;
+		if (prenom == null) {
+			if (other.prenom != null)
+				return false;
+		} else if (!prenom.equals(other.prenom))
+			return false;
+		if (sexe == null) {
+			if (other.sexe != null)
+				return false;
+		} else if (!sexe.equals(other.sexe))
+			return false;
+		if (Double.doubleToLongBits(taille) != Double.doubleToLongBits(other.taille))
+			return false;
+		return true;
+	}
+}

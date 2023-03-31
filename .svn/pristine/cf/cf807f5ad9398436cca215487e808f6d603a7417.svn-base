@@ -1,0 +1,53 @@
+package utils;
+
+import java.awt.Dimension;
+
+import javax.swing.Action;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+
+public class BoutonPerso extends JButton {
+	
+	private ImageIcon img, img_t, img_p;
+	
+	public BoutonPerso(String desc) {
+		super(desc);
+		img = new ImageIcon("img/bouton.png");
+		img_t = new ImageIcon("img/bouton-touché.png");
+		img_p = new ImageIcon("img/bouton-pressé.png");
+		init();
+	}
+	
+	public BoutonPerso(String desc, String style) {
+		super(desc);
+		
+		if (style.equals("grand")) {
+			img = new ImageIcon("img/bouton-grand.png");
+			img_t = new ImageIcon("img/bouton-touché-grand.png");
+			img_p = new ImageIcon("img/bouton-pressé-grand.png");
+		} else {
+			img = new ImageIcon("img/bouton.png");
+			img_t = new ImageIcon("img/bouton-touché.png");
+			img_p = new ImageIcon("img/bouton-pressé.png");
+		}
+		
+		
+		init();
+	}
+	
+	
+
+	
+	private void init() {
+		this.setOpaque(false);
+		this.setBorderPainted(false);
+		this.setContentAreaFilled(false);
+		this.setIcon(this.img);
+		this.addMouseListener(new MouseListenerPerso(this, img, img_t, img_p));
+		this.setHorizontalTextPosition(JButton.CENTER);
+		this.setVerticalTextPosition(JButton.CENTER);
+		
+	}
+
+}

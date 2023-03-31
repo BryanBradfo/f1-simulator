@@ -1,0 +1,71 @@
+package MVC_interface_graphique.Modèle;
+
+import MVC_interface_graphique.Main;
+import modele.Circuit;
+import modele.Classement;
+import modele.Ecurie;
+import modele.MoteurDeCourse;
+
+/** Classe définissant le modèle du menu principal
+ * @author Timothée Blanchy
+ * @version 1.0
+ */
+public class ModeleMenuPrincipal {
+
+	private Main mdj;			// Moteur de jeu
+	
+	/** Constructeur du modèle
+	 * @param ecurie l'écurie du joueur
+	 */
+	public ModeleMenuPrincipal(Main mdj) {
+		this.mdj = mdj;
+	}
+	
+	/** Retourner le nom de l'écurie
+	 * @return le nom de l'écurie
+	 */
+	public String getEcurieNom() {
+		return this.mdj.getEcurie().getNom();
+	}
+	
+	/** Retourner le budget de l'écurie
+	 * @return le budget de l'écurie
+	 */
+	public int getBudjetEcurie() {
+		return this.mdj.getEcurie().getBudget();
+	}
+	
+	/** Retourner le niveau de l'écurie
+	 * @return le niveau de l'écurie
+	 */
+	public int getNiveauEcurie() {
+		return this.mdj.getEcurie().getExperience().getNiveau();
+	}
+	
+	/** Lancer le menu de gestion de la voiture
+	 */
+	public void goMenuVoiture() {
+		this.mdj.menuVoiture();
+	}
+	
+	/** Lancer le menu de gestion des pilotes
+	 */
+	public void goMenuPilotes() {
+		// TODO Menu pilotes
+	}
+	
+	/** Lancer le menu des courses
+	 */
+	public void goMenuCourse() {
+		MoteurDeCourse m = new MoteurDeCourse(Circuit.creerCircuitBahrein(), this.mdj.getEcuriesOpposants());
+		m.lancerCourse();
+		Classement c = new Classement(m);
+		this.mdj.menuResultat(c);
+	}
+	
+	public void retourMenuLancement() {
+		this.mdj.setNumSave(-1);
+		this.mdj.menuLancement();
+	}
+
+}

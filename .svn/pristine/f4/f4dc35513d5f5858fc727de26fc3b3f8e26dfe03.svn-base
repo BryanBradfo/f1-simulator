@@ -1,0 +1,18 @@
+package modele;
+import org.junit.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class VoitureTest {
+	
+	@Before public void setUp() {
+		// Creer un nouveau pilote
+		Pilote NS = new Pilote("Sarkozy", "Nicolas", "Français", 67, "Masculin", 1.66, 80);
+		
+		// Creer une voiture associée
+		Voiture v1 = new Voiture("Audible", 752, 1, false, NS);
+	}
+	
+	@Test public void testerVoiture() {
+		assert(v1.);
+	}
+}

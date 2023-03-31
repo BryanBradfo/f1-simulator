@@ -1,0 +1,66 @@
+package MVC_interface_graphique.Modèle;
+
+import MVC_interface_graphique.Main;
+import exceptions.BudgetInsuffisantException;
+import modele.Ecurie;
+
+/** Cette classe décrit le comportement du menu de gestion de la voiture
+ * 
+ * @author Timothée Blanchy
+ * @version 1.0
+ *
+ */
+public class ModeleMenuVoiture {
+	
+	private Main mdj;								// Moteur du jeu
+	private String message;
+	
+	public ModeleMenuVoiture(Main mdj) {
+		this.mdj = mdj;
+	}
+	
+	/** Revenir au Menu principal
+	 */
+	public void goMenuPrincipal() {
+		mdj.menuPrincipal();
+	}
+	
+	/** @return les informations sur la voiture
+	 */
+	public String getInfosVoitures() {
+		return this.mdj.getEcurie().getVoiture().toString();
+	}
+	
+	/** @return le coût d'amélioration de la voiture
+	 */
+	public int getCoutAmelioration() {
+		return this.mdj.getEcurie().coutAmeliorerVoiture();
+	}
+	
+	/** @return si il est possible d'améliorer la voiture
+	 */
+	public boolean getIsAmeliorationPossible() {
+		return (this.mdj.getEcurie().getBudget() > this.mdj.getEcurie().coutAmeliorerVoiture());
+	}
+	
+	/** @return Le budget de l'écurie
+	 */
+	public int getBudget() {
+		return this.mdj.getEcurie().getBudget();
+	}
+	
+	public void ameliorerVoiture() {
+		
+		try {
+			this.mdj.getEcurie().ameliorerVoiture();
+			this.message = "Amélioration effectuée !";
+		} catch (BudgetInsuffisantException e) {
+			this.message = "Pas assez d'argent";
+		}
+	}
+	
+	public String getMessage() {
+		return this.message;
+	}
+
+}

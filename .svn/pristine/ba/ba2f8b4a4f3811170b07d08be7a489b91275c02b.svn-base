@@ -1,0 +1,43 @@
+package modele;
+
+import org.junit.*;
+
+public class PiloteTest {
+	
+	// Creer les variables
+		Pilote Timothee, Bryan;
+		
+		@Before public void setUp() {
+			
+			// Creer les pilotes
+			Timothee = new Pilote("Blanchy", "Timothee", "Français", 36, "homme", 1.90, 74, new Experience());
+			Bryan = Pilote.creerPilotebasique();
+		}
+		
+		@Test public void testerPilote() {
+			assert(Timothee.getNom() == "Blanchy");
+			assert(Timothee.getPrenom() == "Timothee");
+			assert(Timothee.getNationalite() == "Français");
+			assert(Timothee.getAge() == 36);
+			assert(Timothee.getSexe() == "homme");
+			assert(Timothee.getTaille() == 1.90);
+			assert(Timothee.getPoids() == 74);
+		}
+		
+
+		
+		@Test public void testerPilotebasique() {
+			assert(Bryan.getNom() == "Chen");
+			assert(Bryan.getPrenom() == "Bryan");
+			assert(Bryan.getNationalite() == "Chinois");
+			assert(Bryan.getAge() == 20);
+			assert(Bryan.getSexe() == "homme");
+			assert(Bryan.getTaille() == 1.85);
+			assert(Bryan.getPoids() == 71.5);
+		}
+
+		
+		
+
+
+}

@@ -1,0 +1,85 @@
+package MVC_interface_graphique.Vue;
+import javax.swing.*;
+
+import MVC_interface_graphique.Modèle.ModeleMenuResultatsCourse;
+import java.awt.*;
+
+/** Cette classe fait la vue du menu des résultats de la course.
+ * 
+ * @version 1.1
+ */
+public class VueMenuResultatsCourse extends JPanel {
+	
+	private static final long serialVersionUID = 6186398357323434628L;		// Numéro de Série (utile si besoin de serialiser la classe)
+	private ModeleMenuResultatsCourse modele;	// Modèle du menu
+	private JPanel phaut;						// JPanel en haut
+	private JPanel pbas;						// JPanel en bas
+	
+	private JTextArea Premier;
+	private JTextArea Deuxieme;
+	private JTextArea Troisieme;
+	private JTextArea Reste;
+	
+	public VueMenuResultatsCourse(ModeleMenuResultatsCourse modele) {
+		this.modele = modele;
+		this.setLayout(new BorderLayout());
+		
+//		JTextPane textPane = new JTextPane();
+// 
+//		StyledDocument documentStyle = textPane.getStyledDocument();
+//		SimpleAttributeSet centerAttribute = new SimpleAttributeSet();
+//		StyleConstants.setAlignment(centerAttribute, StyleConstants.ALIGN_CENTER);
+//		documentStyle.setParagraphAttributes(0, documentStyle.getLength(), centerAttribute, false);
+		
+		this.phaut = new JPanel();
+		this.pbas = new JPanel();
+		this.phaut.setLayout(new BorderLayout());
+		this.pbas.setLayout(new BorderLayout());
+		
+		this.Premier = new JTextArea();
+		Premier.setEditable(false);
+		Premier.setOpaque(false);
+		//this.Premier.setHorizontalAlignment(JTextArea.CENTER_ALIGNMENT);
+		this.Premier.setFont(Premier.getFont().deriveFont(35f));
+		this.phaut.add(this.Premier, BorderLayout.NORTH);
+		
+		this.Deuxieme = new JTextArea();
+		Deuxieme.setEditable(false);
+		Deuxieme.setOpaque(false);
+		//this.Deuxieme.setHorizontalAlignment(JTextArea.CENTER_ALIGNMENT);
+		this.Deuxieme.setFont(Deuxieme.getFont().deriveFont(30f));
+		this.phaut.add(this.Deuxieme, BorderLayout.WEST);
+		
+		this.Troisieme = new JTextArea();
+		Troisieme.setEditable(false);
+		Troisieme.setOpaque(false);
+		//this.Troisieme.setHorizontalAlignment(JTextArea.CENTER_ALIGNMENT);
+		this.Troisieme.setFont(Troisieme.getFont().deriveFont(25f));
+		this.phaut.add(this.Troisieme, BorderLayout.EAST);
+		
+		this.Reste = new JTextArea();
+		Reste.setEditable(false);
+		Reste.setOpaque(false);
+		//this.Reste.setHorizontalAlignment(JTextArea.LEFT_ALIGNMENT);
+		this.Reste.setFont(Reste.getFont().deriveFont(18f));
+		
+		this.pbas.add(this.Reste, BorderLayout.SOUTH);
+		
+		this.add(phaut, BorderLayout.NORTH);
+		this.add(pbas, BorderLayout.CENTER);
+		
+		mettreAJour();
+	}
+	
+	public void mettreAJour() {
+		this.Premier.setText("1.     " + modele.getPremier()[0] + "\n       " + modele.getPremier()[1]);
+		this.Deuxieme.setText("2.     " + modele.getSecond()[0] + "\n       " + modele.getSecond()[1]);
+		this.Troisieme.setText("3.     " + modele.getThird()[0] + "\n       " + modele.getThird()[1]);
+		String[][] leReste = modele.getReste();
+		String listePilotes = "";
+		for (int i = 0; i < leReste.length; i++) {
+			listePilotes = listePilotes + Integer.toString(i+4) + ".	" + leReste[i][0] + "     	" + leReste[i][1] + "\n";
+		}		
+		this.Reste.setText(listePilotes);
+	}
+}

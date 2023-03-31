@@ -1,0 +1,23 @@
+package vue.sousmenus;
+
+import modele.Ecurie;
+import vue.menu.SousMenu;
+
+public class MenuPrincipal extends SousMenu {
+	
+	private Ecurie monEcurie;
+	
+	public MenuPrincipal(Ecurie ecurie) {
+		super("");
+		this.monEcurie = ecurie;
+	}
+	
+	@Override
+	public void update() {
+		String desc1 = "MENU PRINCIPAL\n\nBienvenue à toi, jeune directeur d'écurie ! Voici le menu d'où tu pourras controler celle-ci !\n";
+		String desc2 = "Tu peux lancer une course, ou t'occuper de tes voitures et ou pilotes\nQuelques infos sur l'écurie : \n\n";
+		String desc3 = "Ecurie : " + monEcurie.getNom() + ", Budget : " + monEcurie.getBudget() + " DogeCoins, classement : " + monEcurie.getClassement(); 
+		this.setTitre(desc1 + desc2 +desc3);
+	}
+	
+}

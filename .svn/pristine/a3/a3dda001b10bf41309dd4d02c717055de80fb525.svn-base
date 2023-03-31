@@ -1,0 +1,34 @@
+package MVC_interface_graphique.Vue;
+import javax.swing.*;
+import MVC_interface_graphique.Modèle.ModeleMenuLancement;
+import java.awt.*;
+
+public class VueMenuLancement extends JPanel {
+	private ModeleMenuLancement modele;
+	private JLabel afficheur1;
+	private JLabel afficheur2;
+	
+	public VueMenuLancement(ModeleMenuLancement modele) {
+		this.modele = modele;
+		this.setLayout(new BorderLayout());		
+		this.afficheur1 = new JLabel();
+		this.afficheur2 = new JLabel();
+		afficheur1.setHorizontalAlignment(JLabel.CENTER);
+		afficheur2.setHorizontalAlignment(JLabel.CENTER);
+		afficheur1.setFont(afficheur1.getFont().deriveFont(48f));
+		afficheur2.setFont(afficheur2.getFont().deriveFont(18f));
+
+		this.add(afficheur1, BorderLayout.NORTH);
+		this.add(afficheur2, BorderLayout.SOUTH);
+
+		mettreAJour();
+	}
+	
+	public void mettreAJour() {		
+		afficheur1.setText(modele.getNomJeu());
+		afficheur2.setText("Version " + modele.getVersion());
+
+		
+		
+	}
+}

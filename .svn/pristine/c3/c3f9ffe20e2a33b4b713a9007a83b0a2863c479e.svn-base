@@ -1,0 +1,45 @@
+package MVC_interface_graphique.Contrôle;
+
+import java.awt.*;
+import javax.swing.*;
+
+
+import MVC_interface_graphique.Modèle.ModeleMenuSave;
+import MVC_interface_graphique.Vue.VueBoutonMenuSave;
+
+
+
+public class ControleMenuSave extends JPanel {
+
+	public ControleMenuSave(ModeleMenuSave modele, VueBoutonMenuSave vueB1, VueBoutonMenuSave vueB2, VueBoutonMenuSave vueB3) {
+		super(new BorderLayout());
+		
+		JPanel pSave = new JPanel();
+		JPanel pBas = new JPanel();
+		
+		JButton bRet = new JButton("Retour au menu");
+		JButton bSup = new JButton("Supprimer une sauvegarde");
+		JButton b1 = new JButton();
+		JButton b2 = new JButton();
+		JButton b3 = new JButton();
+		
+		b1.add(vueB1);
+		b2.add(vueB2);
+		b3.add(vueB3);
+		
+		pSave.setLayout(new BoxLayout(pSave, BoxLayout.PAGE_AXIS));
+		pSave.add(b1);
+		pSave.add(b2);
+		pSave.add(b3);
+		
+		pBas.setLayout(new BorderLayout());
+		pBas.add(bSup, BorderLayout.WEST);
+		pBas.add(bRet, BorderLayout.EAST);
+		
+		this.add(pSave, BorderLayout.CENTER);
+		this.add(pBas, BorderLayout.SOUTH);
+		
+	}
+	
+
+}

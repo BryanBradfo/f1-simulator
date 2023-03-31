@@ -1,0 +1,22 @@
+package vue.sousmenus;
+
+import modele.Ecurie;
+import vue.menu.SousMenu;
+
+public class MenuVoiture extends SousMenu {
+	
+	private Ecurie monEcurie;
+	private String message;
+	
+	public MenuVoiture(Ecurie ecurie) {
+		super("");
+		this.monEcurie = ecurie;
+		this.message = "";
+	}
+	
+	@Override
+	public void update() {
+		this.setTitre("MENU CAR MANAGEMENT\n\nBudget de l'écurie : " + monEcurie.getBudget() + " DOGECOINS\n\n" + monEcurie.getVoiture() + "\n\n Prix de la prochaine amélioration : " + monEcurie.coutAmeliorerVoiture() + " DOGECOINS" + message);
+	}
+	
+}

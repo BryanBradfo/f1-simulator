@@ -1,0 +1,69 @@
+package modele;
+
+public abstract class Voiture {
+	
+	/** Marque de la voiture. */
+	private String marque;
+
+	/** Poids de la voiture. */
+	private float poids;
+
+	/** Indice de performance de la voiture. */
+	private int indicesPerformances;
+
+	/** Indicateur afin de savoir si la voiture est toujours sur la course ou non. */
+	private boolean estEnCourse;
+
+	/** Pilote de la voiture. */
+	private Pilote pilote;
+	
+	/** Construire la voiture à partir de sa marque, son poids, sa performance
+	 * sous forme d'indice et un indicateur pour savoir s'il est en course ou non.
+	 * @param saMarque la marque de la voiture
+	 * @param sonPoids le poids de la voiture
+	 * @param sonIndicePerformance l'indice de performance de la voiture
+	 * @param EnCourse Indicateur pour savoir si la voiture est sur la course ou pas 
+	 */
+	public Voiture(String saMarque, float sonPoids, int sonIndicePerformance, boolean EnCourse, Pilote sonPilote ) {
+		this.marque = saMarque;
+		this.poids = sonPoids;
+		this.indicesPerformances = sonIndicePerformance;
+		this.estEnCourse = EnCourse;
+		this.pilote = sonPilote;
+	}
+
+	/** Obtenir la marque de la voiture.
+	 * @return marque
+	 */
+	public String getMarque() {
+		return marque;
+	}
+
+	/** Obtenir le poids de la voiture.
+	 * @return poids
+	 */
+	public float getPoids() {
+		return poids;
+	}
+
+	/** Obtenir l'indice de performance de la voiture.
+	 * @return indicesPerformances
+	 */
+	public int getIndicesPerformances() {
+		return indicesPerformances;
+	}
+
+	/** Savoir si la voiture est sur la course ou pas.
+	 * @return estEnCourse
+	 */
+	public boolean isEstEnCourse() {
+		return estEnCourse;
+	}
+	
+	/** Obtenir le pilote de la voiture.
+	 * @return pilote
+	 */
+	public Pilote getPilote() {
+		return pilote;
+	}
+}

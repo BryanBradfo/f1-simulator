@@ -1,0 +1,58 @@
+package MVC_interface_graphique.Vue;
+
+import javax.swing.*;
+
+import MVC_interface_graphique.Modèle.ModeleMenuSave;
+
+/** Cette classe permet de gérer l'ensemble des vus du menu de sauvegarde
+ * 
+ * @author Timothée Blanchy
+ * @version 1.0
+ */
+public class VueMenuSave {
+	
+	private ModeleMenuSave modele;	// Modele de sauvegarde
+	private VueBoutonMenuSave boutons[] = new VueBoutonMenuSave[3];	// Les 3 boutons de sauvegarde
+	private JLabel bDel;			// Boutons pour changer au mode de suppression
+	
+	/** Constructeur de la vue du menu de sauvegarde
+	 * @param modele Le modèle du menu de sauvegarde
+	 */
+	public VueMenuSave(ModeleMenuSave modele) {
+		this.modele = modele;
+		for (int i = 0; i <= 2; i++) {
+			this.boutons[i] = new VueBoutonMenuSave(modele, i);
+		}
+		this.bDel = new JLabel("");
+		
+		
+		this.mettreAJour();
+	}
+	
+	/** Mettre à jour toute la vue.
+	 */
+	public void mettreAJour() {
+		for (int i = 0; i <= 2; i++) {
+			this.boutons[i].mettreAJour();
+		}
+		if (modele.isDelMode()) {
+			this.bDel.setText("Annuler");
+		} else {
+			this.bDel.setText("Supprimer une sauvegarde");
+		}
+	}
+	
+	/** Récupérer la vue des boutons.
+	 * @return un tableau des 3 boutons
+	 */
+	public VueBoutonMenuSave[] getBoutonVue() {
+		return this.boutons;
+	}
+	
+	/** Récupérer la vue du bouton de suppression.
+	 * @return la vue
+	 */
+	public JLabel getBoutonDel() {
+		return this.bDel;
+	}
+}
