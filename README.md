@@ -1,5 +1,7 @@
 # F1-Simulator 🏎️
 
+![F1 Wallpaper](f1.jpg)
+
 **English:** Become the director of an F1 team, earn money to improve your two cars for the next races! Get ready and join this adventure.
 
 **Français:** Devenez directeur d'une écurie de F1, gagnez de l'argent afin d'améliorer vos deux voitures pour vos prochaines courses ! Soyez prêt et rejoignez cette aventure.
